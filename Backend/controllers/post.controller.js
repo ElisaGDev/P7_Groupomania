@@ -102,3 +102,69 @@ exports.deletePost = (req, res, next) => {
       res.status(400).json({ error });
     });
 };
+
+exports.likePost = async (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    await Post.findOne({ _id: req.params.id }).then((post) => {
+      if (!post.usersLiked.includes(req.body.posterId)) {
+        Post.updateOne(
+          { _id: req.params.id },
+          {
+            $push: { usersLiked: req.body.posterId },
+          }
+        )
+          .then((data) => res.send(data))
+          .catch((err) => res.status(500).send({ message: err }));
+      } else if (post.usersLiked.includes(req.body.posterId)) {
+        {
+          Post.updateOne(
+            { _id: req.params.id },
+            {
+              $pull: { usersLiked: req.body.posterId },
+            }
+          )
+            .then((data) => res.send(data))
+            .catch((err) => res.status(500).send({ message: err }));
+        }
+      }
+    });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+exports.dislikePost = async (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    await Post.findOne({ _id: req.params.id }).then((post) => {
+      if (!post.usersDisliked.includes(req.body.posterId)) {
+        Post.updateOne(
+          { _id: req.params.id },
+          {
+            $push: { usersDisliked: req.body.posterId },
+          }
+        )
+          .then((data) => res.send(data))
+          .catch((err) => res.status(500).send({ message: err }));
+      } else if (post.usersDisliked.includes(req.body.posterId)) {
+        {
+          Post.updateOne(
+            { _id: req.params.id },
+            {
+              $pull: { usersDisliked: req.body.posterId },
+            }
+          )
+            .then((data) => res.send(data))
+            .catch((err) => res.status(500).send({ message: err }));
+        }
+      }
+    });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
