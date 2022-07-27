@@ -1,4 +1,4 @@
-exports.signUpErrors = (err) => {
+exports.registerErrors = (err) => {
   let errors = { pseudo: "", email: "", password: "" };
 
   if (err.message.includes("pseudo"))
@@ -18,7 +18,7 @@ exports.signUpErrors = (err) => {
   return errors;
 };
 
-exports.signInErrors = (err) => {
+exports.loginErrors = (err) => {
   let errors = { email: "", password: "" };
 
   if (err.message.includes("email")) errors.email = "Email incorrect!";

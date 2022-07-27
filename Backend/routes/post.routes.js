@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/post.controller");
-const user_auth = require("../middleware/auth.middleware");
 
 router.get("/", postController.getPosts);
 router.get("/:id", postController.getOnePost);
