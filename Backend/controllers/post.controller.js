@@ -1,5 +1,5 @@
 const Post = require("../models/post.model");
-const ObjectID = require("mongoose").Types.ObjectId;
+const ObjectId = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
@@ -43,7 +43,7 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = (req, res, next) => {
   const userData = res.locals.user;
-  if (!ObjectID.isValid(req.params.id))
+  if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("Id inconnu :" + req.params.id);
   Post.findOne({ _id: req.params.id })
     .then((post) => {
@@ -84,7 +84,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   const userData = res.locals.user;
-  if (!ObjectID.isValid(req.params.id))
+  if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("Id inconnu :" + req.params.id);
   Post.findOne({ _id: req.params.id })
     .then((post) => {
@@ -104,8 +104,8 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.likePost = async (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
     await Post.findOne({ _id: req.params.id }).then((post) => {
@@ -137,8 +137,8 @@ exports.likePost = async (req, res) => {
 };
 
 exports.dislikePost = async (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
     await Post.findOne({ _id: req.params.id }).then((post) => {
@@ -170,8 +170,8 @@ exports.dislikePost = async (req, res) => {
 };
 
 exports.commentPost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
     return PostModel.findByIdAndUpdate(
@@ -196,8 +196,8 @@ exports.commentPost = (req, res) => {
 };
 
 exports.editCommentPost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
     return PostModel.findById(req.params.id, (err, docs) => {
@@ -205,7 +205,7 @@ exports.editCommentPost = (req, res) => {
         comment._id.equals(req.body.commentId)
       );
 
-      if (!theComment) return res.status(404).send("Comment not found");
+      if (!theComment) return res.status(404).send("Commentaire non trouvé!");
       theComment.text = req.body.text;
 
       return docs.save((err) => {
@@ -219,8 +219,8 @@ exports.editCommentPost = (req, res) => {
 };
 
 exports.deleteCommentPost = (req, res) => {
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("ID unknown : " + req.params.id);
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
     return PostModel.findByIdAndUpdate(

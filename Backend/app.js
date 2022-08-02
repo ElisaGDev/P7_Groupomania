@@ -59,7 +59,4 @@ app.use("/auth", usersLogRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/posts", postsRoutes);
 
-//Dossier où stocker les images
-//app.use('/images', express.static(path.join(__dirname, 'images')));
-
 module.exports = app;

@@ -22,6 +22,16 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       maxlength: 1024,
     },
+    bio: {
+      type: String,
+      max: 1024,
+    },
+    followers: {
+      type: [String],
+    },
+    following: {
+      type: [String],
+    },
     role: {
       type: String,
       default: "user",
