@@ -28,20 +28,22 @@ exports.register = (req, res, next) => {
 };
 
 //Connexion d'un utilisateur
-
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        const errors = loginErrors(err);
-        res.status(401).json({ errors });
+        return res
+          .status(401)
+          .json({ errorEmail: "Email incorrect !", errorPassword: "" });
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            const errors = loginErrors(err);
-            return res.status(401).json({ errors });
+            return res.status(401).json({
+              errorPassword: "Mot de passe incorrect !",
+              errorEmail: "",
+            });
           }
           const token = jwt.sign(
             { userId: user._id, role: user.role, pseudo: user.pseudo },

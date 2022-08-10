@@ -3,6 +3,7 @@ require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
 const app = express();
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const usersLogRoutes = require("./routes/log.routes");
 const usersRoutes = require("./routes/user.routes");
@@ -13,21 +14,17 @@ const {
 } = require("./middleware/auth.middleware");
 
 app.use(express.json());
-app.use(cookieParser());
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
 //Routes
 app.use("/api", authRoutes);

@@ -18,17 +18,6 @@ exports.registerErrors = (err) => {
   return errors;
 };
 
-exports.loginErrors = (err) => {
-  let errors = { email: "", password: "" };
-
-  if (err.message.includes("email")) errors.email = "Email incorrect!";
-
-  if (err.message.includes("password"))
-    errors.password = "Mot de passe incorrect!";
-
-  return errors;
-};
-
 exports.uploadErrors = (err) => {
   let errors = { format: "", maxSize: "" };
 
