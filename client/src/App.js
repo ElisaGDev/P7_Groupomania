@@ -21,7 +21,7 @@ function App() {
         .catch((err) => console.log("No token"));
     };
     fetchToken();
-  }, [uid]);
+  }, []);
 
   return (
     <UidContext.Provider value={uid}>
