@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "./config/.env" });
-const { registerErrors, loginErrors } = require("../utils/user.errors");
+const { registerErrors } = require("../utils/user.errors");
 
 //Création d'un nouvel utilisateur
 exports.register = (req, res, next) => {
@@ -24,7 +24,7 @@ exports.register = (req, res, next) => {
           res.status(400).json({ errors });
         });
     })
-    .catch((err) => res.status(500).json({ err }));
+    .catch((err) => res.status(500).json({ errors }));
 };
 
 //Connexion d'un utilisateur

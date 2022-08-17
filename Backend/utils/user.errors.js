@@ -7,7 +7,7 @@ exports.registerErrors = (err) => {
   if (err.message.includes("email")) errors.email = "Email incorrect!";
 
   if (err.message.includes("password"))
-    errors.password = "Mot de passe incorrect!(6 caractères minimum)";
+    errors.password = "Mot de passe incorrect!(8 caractères minimum)";
 
   if (err.code === 11000 && Object.keys(err.keyvalue)[0].includes("pseudo"))
     errors.pseudo = "Ce pseudo est déjà utilisé!";

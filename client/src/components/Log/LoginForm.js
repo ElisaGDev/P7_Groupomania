@@ -65,7 +65,7 @@ export default function LoginForm() {
           <div className="password error"></div>
         </div>
         <div className="d-grid gap-2 mt-3">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary text-white">
             Se connecter
           </button>
         </div>

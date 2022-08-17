@@ -19,20 +19,18 @@ export default function Log(props) {
   return (
     <div className="Auth-form-container">
       <div>
-        <ul className="nav justify-content-center">
+        <ul className="nav nav-tabs ">
           <li
-            className="nav-item"
             onClick={handleModals}
             id="register"
-            className={registerModal ? "nav-link" : null}
+            className={registerModal ? "text-primary me-4" : null}
           >
             S'inscrire
           </li>
           <li
-            className="nav-item"
             onClick={handleModals}
             id="login"
-            className={loginModal ? "nav-link" : null}
+            className={loginModal ? "text-primary ms-4" : null}
           >
             Se connecter
           </li>

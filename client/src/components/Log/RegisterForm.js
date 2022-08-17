@@ -9,7 +9,7 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
     const pseudoError = document.querySelector(".pseudo.error");
@@ -31,26 +31,21 @@ export default function RegisterForm() {
       if (!terms.checked)
         termsError.innerHTML = "Veuillez valider les conditions générales";
     } else {
-      await axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}auth/register`,
-        data: {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}auth/register`, {
           pseudo,
           email,
           password,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.data.errors) {
-            pseudoError.innerHTML = res.data.errors.pseudo;
-            emailError.innerHTML = res.data.errors.email;
-            passwordError.innerHTML = res.data.errors.password;
-          } else {
-            setFormSubmit(true);
-          }
         })
-        .catch((err) => console.log(err));
+        .then((res) => {
+          setFormSubmit(true);
+        })
+        .catch((err) => {
+          pseudoError.innerHTML = err.response.data.errors.pseudo;
+          emailError.innerHTML = err.response.data.errors.email;
+          passwordError.innerHTML = err.response.data.errors.password;
+          console.log(err);
+        });
     }
   };
 
@@ -129,7 +124,12 @@ export default function RegisterForm() {
               <input type="checkbox" id="terms" />
               <label htmlFor="terms">
                 J'accepte les{" "}
-                <a href="/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary"
+                >
                   conditions générales
                 </a>
               </label>
@@ -138,7 +138,7 @@ export default function RegisterForm() {
             <div className="d-grid gap-2 mt-3">
               <button
                 type="submit"
-                className="btn btn-primary submit"
+                className="btn btn-primary submit text-white"
                 value="Valider inscription"
               >
                 S'inscrire

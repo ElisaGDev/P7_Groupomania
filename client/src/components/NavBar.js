@@ -6,13 +6,11 @@ export default function NavBar() {
     <nav className="navbar navbar-light bg-light">
       <NavLink to="/">
         <img
-          src="favicon.png"
-          width="60"
-          height="60"
+          src="img/Logo.png"
+          width="35%"
           className="d-inline-block align-top"
           alt=""
         />
-        <a href="/">Groupomania</a>
       </NavLink>
     </nav>
   );
