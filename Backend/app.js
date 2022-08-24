@@ -30,20 +30,20 @@ app.use(cookieParser());
 /* --------------------------------------- UploadFile - Post images -------------------------------------------- */
 app.use(fileUpload());
 
-app.post("/api/post/file", (req, res) => {
+app.post("/api/posts/file", (req, res) => {
   if (req.files === null) {
     return res.status(400).json({ msg: "No file uploaded!" });
   }
 
   const file = req.files.file;
-  file.mv(`${__dirname}/../client/public/images/post/${file.name}`, (err) => {
+  file.mv(`${__dirname}/../client/public/images/posts/${file.name}`, (err) => {
     if (err) {
       console.log(err);
       return res.status(500).send(err);
     }
     res
       .status(201)
-      .json({ fileName: file.name, filePath: `/images/post/${file.name}` });
+      .json({ fileName: file.name, filePath: `/images/posts/${file.name}` });
   });
 });
 
@@ -51,7 +51,7 @@ app.post("/api/post/file", (req, res) => {
 app.use("/api", authRoutes);
 app.get("/api/token", requireAuth);
 app.use("/auth", usersLogRoutes);
-app.use("/api/user", usersRoutes);
-app.use("/api/post", postsRoutes);
+app.use("/api/users", usersRoutes);
+app.use("/api/posts", postsRoutes);
 
 module.exports = app;

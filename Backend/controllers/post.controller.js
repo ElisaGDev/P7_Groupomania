@@ -91,7 +91,7 @@ exports.deletePost = (req, res, next) => {
     .then((post) => {
       postData = post;
       if (postData.posterId == userData._id || userData.role === "admin") {
-        fs.unlink(`../client/public/images/post/${postData.picture}`, () => {
+        fs.unlink(`../client/public/images/posts/${postData.picture}`, () => {
           Post.findByIdAndRemove(req.params.id, (err, data) => {
             if (!err) res.status(200).send(data);
             else console.log("Suppression du post impossible! " + err);

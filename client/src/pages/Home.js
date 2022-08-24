@@ -11,7 +11,7 @@ export default function Home() {
     const fetchPosts = async () => {
       await axios({
         methode: "get",
-        url: `${process.env.REACT_APP_API_URL}api/post`,
+        url: `${process.env.REACT_APP_API_URL}api/posts`,
         withCredentials: true,
       })
         .then((res) => {
