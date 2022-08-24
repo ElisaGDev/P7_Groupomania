@@ -3,7 +3,6 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
-const pipeline = promisify(require("stream").pipeline);
 
 exports.getPosts = (req, res, next) => {
   Post.find((err, data) => {
@@ -26,36 +25,11 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = async (req, res, next) => {
-  let fileName;
-
-  if (req.file !== null) {
-    try {
-      if (
-        req.file.detectedMimeType != "image/jpg" &&
-        req.file.detectedMimeType != "image/png" &&
-        req.file.detectedMimeType != "image/jpeg"
-      )
-        throw Error("invalid file");
-
-      if (req.file.size > 500000) throw Error("max size");
-    } catch (err) {
-      const errors = uploadErrors(err);
-      return res.status(201).json({ errors });
-    }
-    fileName = req.body.posterId + Date.now() + ".jpg";
-
-    await pipeline(
-      req.file.stream,
-      fs.createWriteStream(
-        `${__dirname}/../../client/public/uploads/posts/${fileName}`
-      )
-    );
-  }
   const newPost = new Post({
     posterId: req.body.posterId,
     posterPseudo: req.body.posterPseudo,
     message: req.body.message,
-    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
+    picture: req.body.picture,
     usersLiked: [],
     usersDisliked: [],
   });
@@ -117,7 +91,7 @@ exports.deletePost = (req, res, next) => {
     .then((post) => {
       postData = post;
       if (postData.posterId == userData._id || userData.role === "admin") {
-        fs.unlink(`../client/public/images/posts/${postData.picture}`, () => {
+        fs.unlink(`../client/public/images/post/${postData.picture}`, () => {
           Post.findByIdAndRemove(req.params.id, (err, data) => {
             if (!err) res.status(200).send(data);
             else console.log("Suppression du post impossible! " + err);

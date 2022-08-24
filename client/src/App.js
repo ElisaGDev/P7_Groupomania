@@ -4,7 +4,9 @@ import { UidContext } from "./components/AppContext";
 import axios from "axios";
 
 function App() {
-  const [uid, setUid] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [role, setRole] = useState("");
+  const [pseudo, setPseudo] = useState("");
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -15,7 +17,9 @@ function App() {
       })
         .then((res) => {
           console.log(res);
-          setUid(res.data);
+          setUserId(res.data.user_Id);
+          setRole(res.data.role);
+          setPseudo(res.data.pseudo);
         })
         .catch((err) => console.log("No token"));
     };
@@ -23,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <UidContext.Provider value={uid}>
+    <UidContext.Provider value={{ userId, role, pseudo }}>
       <Routes />
     </UidContext.Provider>
   );

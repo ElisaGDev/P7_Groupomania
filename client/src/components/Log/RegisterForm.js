@@ -9,7 +9,7 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
     const pseudoError = document.querySelector(".pseudo.error");
@@ -31,7 +31,7 @@ export default function RegisterForm() {
       if (!terms.checked)
         termsError.innerHTML = "Veuillez valider les conditions générales";
     } else {
-      axios
+      await axios
         .post(`${process.env.REACT_APP_API_URL}auth/register`, {
           pseudo,
           email,

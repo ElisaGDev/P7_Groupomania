@@ -1,4 +1,4 @@
-exports.registerErrors = (err) => {
+module.exports.registerErrors = (err) => {
   let errors = { pseudo: "", email: "", password: "" };
 
   if (err.message.includes("pseudo"))
@@ -18,7 +18,7 @@ exports.registerErrors = (err) => {
   return errors;
 };
 
-exports.uploadErrors = (err) => {
+module.exports.uploadErrors = (err) => {
   let errors = { format: "", maxSize: "" };
 
   if (err.message.includes("invalid file"))
