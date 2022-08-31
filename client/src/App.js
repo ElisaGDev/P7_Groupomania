@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Routes from "./components/Routes";
 import { UidContext } from "./components/AppContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getUser } from "./actions/user.actions";
 
-function App() {
-  const [userId, setUserId] = useState(null);
-  const [role, setRole] = useState("");
-  const [pseudo, setPseudo] = useState("");
+const App = () => {
+  const [uid, setUid] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -16,21 +17,20 @@ function App() {
         withCredentials: true,
       })
         .then((res) => {
-          console.log(res);
-          setUserId(res.data.user_Id);
-          setRole(res.data.role);
-          setPseudo(res.data.pseudo);
+          setUid(res.data);
         })
         .catch((err) => console.log("No token"));
     };
     fetchToken();
-  }, []);
+
+    if (uid) dispatch(getUser(uid));
+  }, [uid, dispatch]);
 
   return (
-    <UidContext.Provider value={{ userId, role, pseudo }}>
+    <UidContext.Provider value={uid}>
       <Routes />
     </UidContext.Provider>
   );
-}
+};
 
 export default App;

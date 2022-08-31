@@ -23,14 +23,14 @@ export default function Log(props) {
           <li
             onClick={handleModals}
             id="register"
-            className={registerModal ? "text-primary me-4" : null}
+            className={registerModal ? "text-primary me-4" : "mx-3"}
           >
             S'inscrire
           </li>
           <li
             onClick={handleModals}
             id="login"
-            className={loginModal ? "text-primary ms-4" : null}
+            className={loginModal ? "text-primary ms-4" : "mx-3"}
           >
             Se connecter
           </li>

@@ -1,30 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import UploadImg from "./UploadImg";
+import { updateBio } from "../../actions/user.actions";
+import { dateParser } from "../utils/tools";
 
-export default function UpdateProfil() {
+const UpdateProfil = () => {
+  const [bio, setBio] = useState("");
+  const [updateForm, setUpdateForm] = useState(false);
+  const userData = useSelector((state) => state.userReducer);
+  const error = useSelector((state) => state.errorReducer.userError);
+  const dispatch = useDispatch();
+
+  const handleUpdate = () => {
+    dispatch(updateBio(userData._id, bio));
+    setUpdateForm(false);
+  };
+
   return (
     <div className="profil-container">
-      <div className="profil-container__card">
-        <h1>Profil de </h1>
-        <div className="profil-container__card__update-img">
+      <h1> Profil de {userData.pseudo}</h1>
+      <div className="update-container">
+        <div className="left-part">
           <h3>Photo de profil</h3>
-          <img alt="user-pic" />
+          <img src={userData.picture} alt="user-pic" />
+          <UploadImg />
+          <p>{error.maxSize}</p>
+          <p>{error.format}</p>
         </div>
-        <form className="profil-container__card__update-pseudo">
-          <input
-            aria-label="changer son nom"
-            type="text"
-            id="pseudo"
-            name="pseudo"
-          />
-          <input type="submit" value="Valider" />
-        </form>
-        <button
-          aria-label="Bouton supprimer son compte"
-          className="profil-container__card__delete-account"
-        >
-          Supprimer le compte
-        </button>
+        <div className="right-part">
+          <div className="bio-update">
+            <h3>Bio</h3>
+            {updateForm === false && (
+              <>
+                <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
+                <button onClick={() => setUpdateForm(!updateForm)}>
+                  Modifier bio
+                </button>
+              </>
+            )}
+            {updateForm && (
+              <>
+                <textarea
+                  type="text"
+                  defaultValue={userData.bio}
+                  onChange={(e) => setBio(e.target.value)}
+                ></textarea>
+                <button onClick={handleUpdate}>Valider modifications</button>
+              </>
+            )}
+          </div>
+          <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default UpdateProfil;

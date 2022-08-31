@@ -20,7 +20,7 @@ export default function Logout() {
   };
   return (
     <li onClick={logout}>
-      <img src="./img/logout.svg" alt="logout" />
+      <img src="./img/icons/logout.svg" className="pe-auto" alt="logout" />
     </li>
   );
 }

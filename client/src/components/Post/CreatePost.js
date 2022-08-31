@@ -1,129 +1,154 @@
-import React, { useState } from "react";
-import axios from "axios";
-import swal from "sweetalert";
-import { isEmpty } from "../utils/tools";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { isEmpty, timestampParser } from "../utils/tools";
+import { NavLink } from "react-router-dom";
+import { addPost, getPosts } from "../../actions/post.actions";
 
-export default function CreatePost(props) {
-  const getPosterId = props.cle;
-  const getPosterPseudo = props.pseudo;
-
-  const [addMessage, setAddMessage] = useState("");
-
+const CreatePost = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("");
+  const [postPicture, setPostPicture] = useState(null);
+  const [video, setVideo] = useState("");
   const [file, setFile] = useState();
-  const [filename, setFilename] = useState("");
-  const [uploadedFile, setUploadedfile] = useState({});
-  const [verifFile, setVerifFile] = useState(false);
+  const userData = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
-  const handleAddPost = (e) => {
-    e.preventDefault();
-    if (filename && verifFile === false) {
-      swal({
-        title: "Erreur!",
-        text: "Veuillez importer votre image!",
-        icon: "error",
+  const handlePost = async () => {
+    if (message || postPicture || video) {
+      const data = new FormData();
+      data.append("posterId", userData._id);
+      data.append("message", message);
+      if (file) data.append("file", file);
+      data.append("video", video);
+      setTimeout(function () {
+        window.location.reload();
       });
+
+      dispatch(addPost(data));
+      dispatch(getPosts());
+      cancelPost();
     } else {
-      axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}api/posts`,
-        withCredentials: true,
-        data: {
-          message: addMessage,
-          picture: filename,
-          posterId: getPosterId,
-          posterPseudo: getPosterPseudo,
-        },
-      })
-        .then(() => {
-          swal({
-            title: "Ajouté!",
-            text: "Votre post a bien été créé!",
-            icon: "success",
-          }).then(() => {
-            window.location = "/";
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          swal({
-            title: "Attention!",
-            text: "Vous n'êtes pas authentifié! Veuillez vous connecter!",
-            icon: "error",
-          });
-          window.location = "/login";
-        });
+      alert("Veuillez entrer un message");
     }
   };
 
-  const handleUploadPicture = async (e) => {
-    e.preventDefault();
-    setVerifFile(true);
-    const formData = new FormData();
-    formData.append("file", file);
+  const handlePicture = (e) => {
+    setPostPicture(URL.createObjectURL(e.target.files[0]));
+    setFile(e.target.files[0]);
+    setVideo("");
+  };
 
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}api/posts/file`,
-        formData,
-        {
-          headers: {
-            "Content-type": "multipart/form-data",
-          },
+  const cancelPost = () => {
+    setMessage("");
+    setPostPicture("");
+    setVideo("");
+    setFile("");
+  };
+
+  useEffect(() => {
+    if (!isEmpty(userData)) setIsLoading(false);
+
+    const handleVideo = () => {
+      let findLink = message.split(" ");
+      for (let i = 0; i < findLink.length; i++) {
+        if (
+          findLink[i].includes("https://www.yout") ||
+          findLink[i].includes("https://yout")
+        ) {
+          let embed = findLink[i].replace("watch?v=", "embed/");
+          setVideo(embed.split("&")[0]);
+          findLink.splice(i, 1);
+          setMessage(findLink.join(" "));
+          setPostPicture("");
         }
-      );
-      const { fileName, filePath } = res.data;
-      setUploadedfile({ fileName, filePath });
-    } catch (err) {
-      if (err.response.status === 500) {
-        console.log("Problème serveur");
-      } else {
-        console.log(err.response.data.msg);
       }
-    }
-  };
+    };
+    handleVideo();
+  }, [userData, message, video]);
 
   return (
-    <div className="card-body">
-      <form className="form-group" onSubmit={handleAddPost}>
-        <textarea
-          className="form-control"
-          name="message"
-          rows="5"
-          cols="50"
-          maxLength="500"
-          onChange={(e) => setAddMessage(e.target.value)}
-          value={addMessage}
-          placeholder="Veuillez saisir votre message"
-        ></textarea>
-
-        <input
-          type="file"
-          id="customFile"
-          onChange={(e) => {
-            setFile(e.target.files[0]);
-            setFilename(e.target.files[0].name);
-          }}
-          className="btn-active"
-        />
-        <label htmlFor="customFile">{filename}</label>
-        <button
-          onClick={handleUploadPicture}
-          className="btn btn-primary btn-active text-white "
-        >
-          Importer
-        </button>
-        {!isEmpty(uploadedFile) ? (
-          <div>
-            <img src={uploadedFile.filePath} alt="user_post_pic" />
+    <div className="post-container">
+      {isLoading ? (
+        <i className="fas fa-spinner fa-pulse"></i>
+      ) : (
+        <>
+          <NavLink to="/profil">
+            <div className="user-info">
+              <img src={userData.picture} width="30px" alt="user-img" />
+            </div>
+          </NavLink>
+          <div className="post-form">
+            <textarea
+              name="message"
+              id="message"
+              placeholder="Rédiger un message !"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            />
+            {message || postPicture || video.length > 20 ? (
+              <li className="card-container">
+                <div className="card-left">
+                  <img src={userData.picture} width="30px" alt="user-pic" />
+                </div>
+                <div className="card-right">
+                  <div className="card-header">
+                    <div className="pseudo">
+                      <h3>{userData.pseudo}</h3>
+                    </div>
+                    <span>{timestampParser(Date.now())}</span>
+                  </div>
+                  <div className="content">
+                    <p>{message}</p>
+                    <img src={postPicture} alt="" />
+                    {video && (
+                      <iframe
+                        src={video}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={video}
+                      ></iframe>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ) : null}
+            <div className="footer-form">
+              <div className="icon">
+                {isEmpty(video) && (
+                  <>
+                    <img src="./img/icons/picture.svg" alt="img" />
+                    <input
+                      type="file"
+                      id="file-upload"
+                      name="file"
+                      accept=".jpg, .jpeg, .png"
+                      onChange={(e) => handlePicture(e)}
+                    />
+                  </>
+                )}
+                {video && (
+                  <button onClick={() => setVideo("")}>
+                    Supprimer la video
+                  </button>
+                )}
+              </div>
+              <div className="btn-send">
+                {message || postPicture || video.length > 20 ? (
+                  <button className="cancel" onClick={cancelPost}>
+                    Annuler message
+                  </button>
+                ) : null}
+                <button className="send" onClick={handlePost}>
+                  Envoyer
+                </button>
+              </div>
+            </div>
           </div>
-        ) : null}
-
-        <input
-          className="btn btn-primary text-white"
-          type="submit"
-          value="Valider"
-        />
-      </form>
+        </>
+      )}
     </div>
   );
-}
+};
+
+export default CreatePost;

@@ -1,194 +1,152 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UidContext } from "../../components/AppContext";
-import axios from "axios";
-import swal from "sweetalert";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { dateParser, isEmpty } from "../utils/tools";
 import LikeButton from "./LikeButton";
-import { isEmpty, dateParser } from "../utils/tools";
-import UpdatePost from "./UpdatePost";
+import { updatePost } from "../../actions/post.actions";
+import DeleteCard from "./DeleteCard";
+import CardComments from "./CardComments";
 
-export default function Card(props) {
+const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingUpdatePost, setLoadingUpdatePost] = useState(false);
-  const posts = props.posts;
-  const post = props.post;
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [textUpdate, setTextUpdate] = useState(null);
+  const [file, setFile] = useState();
+  const [showComments, setShowComments] = useState(false);
+  const usersData = useSelector((state) => state.usersReducer);
+  const userData = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
-  const { userId, role } = useContext(UidContext);
-
-  const handleLoadUpdatePost = (e) => {
-    setLoadingUpdatePost(true);
-  };
-  const handleCancelUpdatePost = (e) => {
-    setLoadingUpdatePost(false);
-  };
-
-  const handleDeletePost = (e) => {
-    e.preventDefault();
-    axios({
-      method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/posts/${post._id}`,
-      withCredentials: true,
-    })
-      .then(() => {
-        swal({
-          title: "Supprimé!",
-          text: "Votre post a bien été supprimé!",
-          icon: "success",
-        }).then(() => {
-          window.location = "/";
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        swal({
-          title: "Attention!",
-          text: "Vous n'êtes pas authentifié! Veuillez vous connecter!",
-          icon: "error",
-        });
-        window.location = "/login";
+  const updateItem = () => {
+    if (textUpdate || file) {
+      const data = new FormData();
+      data.append("message", textUpdate);
+      data.append("file", file);
+      dispatch(updatePost(post._id, data));
+      setTimeout(function () {
+        window.location.reload();
       });
+    }
+    setIsUpdated(false);
   };
 
   useEffect(() => {
-    !isEmpty(posts[0]) && setIsLoading(false);
-  }, [posts]);
+    !isEmpty(usersData[0]) && setIsLoading(false);
+  }, [usersData]);
 
   return (
-    <li className="container">
+    <div className="card rounded" key={post._id}>
       {isLoading ? (
-        <p>Loading....</p>
+        <i className="fas fa-spinner fa-spin"></i>
       ) : (
-        <section>
-          {role === "admin" ? (
-            <div className="card">
-              <div className="card-header" post={post}>
-                {post.posterPseudo} a écrit :
-              </div>
-              <div className="card-body">
-                <p className="card-text post-message">{post.message}</p>
-                {post.picture ? (
-                  <div className="feed-image p-2 px-3">
-                    <img
-                      className="img-fluid img-responsive"
-                      src={`images/posts/${post.picture}`}
-                      alt="user_post_pic"
-                    />
-                  </div>
-                ) : null}
-              </div>
-              <div>
-                {loadingUpdatePost === false ? (
-                  <input
-                    className="btn-active"
-                    type={"button"}
-                    value={"Modifier"}
-                    onClick={handleLoadUpdatePost}
-                  />
-                ) : (
-                  <input
-                    className="btn-active"
-                    type={"button"}
-                    value={"Annuler"}
-                    onClick={handleCancelUpdatePost}
-                  />
-                )}
-                <input
-                  type={"submit"}
-                  value={"Supprimer"}
-                  onClick={handleDeletePost}
-                  className="supprimer btn-active"
+        <>
+          <div className="card-header">
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center">
+                <img
+                  className="img-xs rounded-circle"
+                  width="30px"
+                  src={
+                    !isEmpty(usersData[0]) &&
+                    usersData
+                      .map((user) => {
+                        if (user._id === post.posterId) return user.picture;
+                        else return null;
+                      })
+                      .join("")
+                  }
+                  alt="poster-pic"
                 />
-                {loadingUpdatePost === true ? (
-                  <UpdatePost
-                    post={post}
-                    postid={post._id}
-                    message={post.message}
-                    picture={post.picture}
-                  />
-                ) : null}
-              </div>
-              <div className="card-footer">
-                <LikeButton post={post} />
-              </div>
-              <div className="timestamps-style">
-                Posté : {dateParser(post.createdAt)} <br />
-                Mis à jour : {dateParser(post.updatedAt)}
+                <div className="ml-2">
+                  <p>
+                    {!isEmpty(usersData[0]) &&
+                      usersData
+                        .map((user) => {
+                          if (user._id === post.posterId) return user.pseudo;
+                          else return null;
+                        })
+                        .join("")}
+                  </p>
+                  <p className="tx-11 text-muted">
+                    {dateParser(post.createdAt)}
+                  </p>
+                </div>
+                {userData._id === post.posterId && userData.admin === false && (
+                  <div className="button-container">
+                    <div onClick={() => setIsUpdated(!isUpdated)}>
+                      <img src="./img/icons/edit.svg" alt="edit" />
+                    </div>
+                    <DeleteCard id={post._id} />
+                  </div>
+                )}
+                {userData.admin === true && (
+                  <div className="button-container">
+                    <div onClick={() => setIsUpdated(!isUpdated)}>
+                      <img src="./img/icons/edit.svg" alt="edit" />
+                    </div>
+                    <DeleteCard id={post._id} />
+                  </div>
+                )}
               </div>
             </div>
-          ) : post.posterId === userId && role === "user" ? (
-            <React.Fragment>
-              <div post={post}>{post.posterPseudo} à écrit :</div>
-              <p className="post-message">{post.message}</p>
-              {post.picture ? (
-                <div>
-                  <img
-                    src={`images/posts/${post.picture}`}
-                    alt="user_post_pic"
-                  />
-                </div>
-              ) : null}
-              <div>
-                {loadingUpdatePost === false ? (
+          </div>
+          {isUpdated === false && <p>{post.message}</p>}
+          {isUpdated && (
+            <div className="update-post">
+              <textarea
+                defaultValue={post.message}
+                onChange={(e) => setTextUpdate(e.target.value)}
+              />
+              <div className="icon">
+                <>
+                  <img src="./img/icons/picture.svg" alt="img" />
                   <input
-                    className="btn-active"
-                    type={"button"}
-                    value={"Modifier"}
-                    onClick={handleLoadUpdatePost}
+                    type="file"
+                    id="file-upload"
+                    name="file"
+                    accept=".jpg, .jpeg, .png"
+                    onChange={(e) => setFile(e.target.files[0])}
                   />
-                ) : (
-                  <input
-                    className="btn-active"
-                    type={"button"}
-                    value={"Annuler"}
-                    onClick={handleCancelUpdatePost}
-                  />
-                )}
-                <input
-                  type={"submit"}
-                  value={"Supprimer"}
-                  onClick={handleDeletePost}
-                  className="supprimer btn-active"
+                </>
+              </div>
+              <div className="button-container">
+                <button className="btn" onClick={updateItem}>
+                  Valider modification
+                </button>
+              </div>
+            </div>
+          )}
+          {post.picture && (
+            <img src={post.picture} alt="card-pic" className="card-pic" />
+          )}
+          {post.video && (
+            <iframe
+              width="500"
+              height="300"
+              src={post.video}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title={post._id}
+            ></iframe>
+          )}
+          <div className="card-footer">
+            <div className="d-flex post-actions">
+              <div className="comment-icon">
+                <img
+                  onClick={() => setShowComments(!showComments)}
+                  src="./img/icons/message1.svg"
+                  alt="comment"
                 />
-                {loadingUpdatePost === true ? (
-                  <UpdatePost
-                    post={post}
-                    postid={post._id}
-                    message={post.message}
-                    picture={post.picture}
-                  />
-                ) : null}
+                <span>{post.comments.length}</span>
               </div>
-              <div>
-                <LikeButton post={post} />
-              </div>
-              <div className="timestamps-style">
-                Posté : {dateParser(post.createdAt)} <br />
-                Mis à jour : {dateParser(post.updatedAt)}
-              </div>
-            </React.Fragment>
-          ) : post.posterId !== userId && role === "user" ? (
-            <React.Fragment>
-              <div post={post}>{post.posterPseudo} à écrit :</div>
-              <p className="post-message">{post.message}</p>
-              {post.picture ? (
-                <div>
-                  <img
-                    src={`images/posts/${post.picture}`}
-                    alt="user_post_pic"
-                  />
-                </div>
-              ) : null}
-              <div>
-                <LikeButton post={post} />
-              </div>
-              <div className="timestamps-style">
-                Posté : {dateParser(post.createdAt)} <br />
-                Mis à jour : {dateParser(post.updatedAt)}
-              </div>
-            </React.Fragment>
-          ) : null}
-        </section>
+              <LikeButton post={post} />
+            </div>
+            {showComments && <CardComments post={post} />}
+          </div>
+        </>
       )}
-    </li>
+    </div>
   );
-}
+};
+
+export default Card;

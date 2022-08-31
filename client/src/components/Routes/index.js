@@ -1,24 +1,19 @@
-import React, { Fragment } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Home from "../../pages/Home";
 import Profil from "../../pages/Profil";
-import NotFound from "../../pages/NotFound";
+import Navbar from "../NavBar";
 
-import NavBar from "../NavBar";
-
-function Index() {
+const index = () => {
   return (
-    <Fragment>
-      <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profil" element={<Profil />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </Fragment>
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profil" element={<Profil />} />
+      </Routes>
+    </div>
   );
-}
+};
 
-export default Index;
+export default index;

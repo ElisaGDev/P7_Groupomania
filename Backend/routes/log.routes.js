@@ -7,6 +7,6 @@ const logCtrl = require("../controllers/log.controller");
 //Log
 router.post("/register", checkPassword, logCtrl.register);
 router.post("/login", logCtrl.login);
-router.get("/logout", logCtrl.logOut);
+router.get("/logout", logCtrl.logout);
 
 module.exports = router;

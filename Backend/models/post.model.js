@@ -17,8 +17,13 @@ const PostSchema = new mongoose.Schema(
     picture: {
       type: String,
     },
-    usersLiked: [String],
-    usersDisliked: [String],
+    video: {
+      type: String,
+    },
+    likers: {
+      type: [String],
+      required: true,
+    },
     comments: {
       type: [
         {

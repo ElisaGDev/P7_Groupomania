@@ -27,11 +27,14 @@ exports.getOnePost = (req, res, next) => {
 exports.createPost = async (req, res, next) => {
   const newPost = new Post({
     posterId: req.body.posterId,
-    posterPseudo: req.body.posterPseudo,
     message: req.body.message,
-    picture: req.body.picture,
-    usersLiked: [],
-    usersDisliked: [],
+    picture:
+      req.file !== undefined
+        ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
+        : "",
+    video: req.body.video,
+    likers: [],
+    comments: [],
   });
 
   try {
@@ -110,21 +113,21 @@ exports.likePost = async (req, res) => {
 
   try {
     await Post.findOne({ _id: req.params.id }).then((post) => {
-      if (!post.usersLiked.includes(req.body.posterId)) {
+      if (!post.likers.includes(req.body.posterId)) {
         Post.updateOne(
           { _id: req.params.id },
           {
-            $push: { usersLiked: req.body.posterId },
+            $push: { likers: req.body.posterId },
           }
         )
           .then((data) => res.send(data))
           .catch((err) => res.status(500).send({ message: err }));
-      } else if (post.usersLiked.includes(req.body.posterId)) {
+      } else if (post.likers.includes(req.body.posterId)) {
         {
           Post.updateOne(
             { _id: req.params.id },
             {
-              $pull: { usersLiked: req.body.posterId },
+              $pull: { likers: req.body.posterId },
             }
           )
             .then((data) => res.send(data))
@@ -143,21 +146,21 @@ exports.dislikePost = async (req, res) => {
 
   try {
     await Post.findOne({ _id: req.params.id }).then((post) => {
-      if (!post.usersDisliked.includes(req.body.posterId)) {
+      if (!post.likers.includes(req.body.posterId)) {
         Post.updateOne(
           { _id: req.params.id },
           {
-            $push: { usersDisliked: req.body.posterId },
+            $push: { likers: req.body.posterId },
           }
         )
           .then((data) => res.send(data))
           .catch((err) => res.status(500).send({ message: err }));
-      } else if (post.usersDisliked.includes(req.body.posterId)) {
+      } else if (post.likers.includes(req.body.posterId)) {
         {
           Post.updateOne(
             { _id: req.params.id },
             {
-              $pull: { usersDisliked: req.body.posterId },
+              $pull: { likers: req.body.posterId },
             }
           )
             .then((data) => res.send(data))

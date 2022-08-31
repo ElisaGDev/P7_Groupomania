@@ -12,7 +12,7 @@ exports.checkUser = (req, res, next) => {
           res.locals.user = null;
           next();
         } else {
-          let user = await User.findById(decodedToken.userId);
+          let user = await User.findById(decodedToken.id);
           res.locals.user = user;
           next();
         }
@@ -34,16 +34,12 @@ exports.requireAuth = (req, res, next) => {
           res.status(200).json("Token invalide!");
           console.log(err);
         } else {
-          const user_Id = decodedToken.userId;
-          const role = decodedToken.role;
-          const pseudo = decodedToken.pseudo;
-          const mess = { user_Id, role, pseudo };
-          res.status(200).send(mess);
+          console.log(decodedToken.id);
           next();
         }
       }
     );
   } else {
-    res.status(401).send("Absence de token!");
+    console.log("Absence de token!");
   }
 };

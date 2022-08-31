@@ -2,7 +2,15 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "./config/.env" });
-const { registerErrors } = require("../utils/user.errors");
+const { registerErrors, signInErrors } = require("../utils/user.errors");
+
+const maxAge = 3 * 24 * 60 * 60 * 1000;
+
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.USER_TOKEN_PASS, {
+    expiresIn: maxAge,
+  });
+};
 
 //Création d'un nouvel utilisateur
 exports.register = (req, res, next) => {
@@ -32,27 +40,19 @@ exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        return res
-          .status(401)
-          .json({ errorEmail: "Email incorrect !", errorPassword: "" });
+        const errors = signInErrors(err);
+        res.status(401).json({ errors });
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({
-              errorPassword: "Mot de passe incorrect !",
-              errorEmail: "",
-            });
+            const errors = signInErrors(err);
+            return res.status(401).json({ errors });
           }
-          const token = jwt.sign(
-            { userId: user._id, role: user.role, pseudo: user.pseudo },
-            process.env.USER_TOKEN_PASS,
-            { expiresIn: "24h" }
-          );
+          const token = createToken(user._id);
           res.cookie("jwt", token, {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000,
+            maxAge,
           });
           res.status(200).json({
             user: user._id,
@@ -67,7 +67,7 @@ exports.login = (req, res, next) => {
     );
 };
 
-exports.logOut = (req, res, next) => {
+exports.logout = (req, res, next) => {
   res.clearCookie("jwt" /* , "", { expiresIn: 1 } */);
   res.redirect("/login");
 };

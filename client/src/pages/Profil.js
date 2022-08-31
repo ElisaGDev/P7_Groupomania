@@ -3,16 +3,20 @@ import Log from "../components/Log";
 import { UidContext } from "../components/AppContext";
 import UpdateProfil from "../components/Profil/UpdateProfil";
 
-export default function Profil() {
-  const userId = useContext(UidContext);
+const Profil = () => {
+  const uid = useContext(UidContext);
 
   return (
-    <div>
-      {userId.userId !== null ? (
+    <div className="profil-page">
+      {uid ? (
         <UpdateProfil />
       ) : (
-        <Log login={false} register={true} />
+        <div className="log-container">
+          <Log signin={false} signup={true} />
+        </div>
       )}
     </div>
   );
-}
+};
+
+export default Profil;

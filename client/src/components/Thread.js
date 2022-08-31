@@ -1,71 +1,42 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../actions/post.actions";
 import Card from "./Post/Card";
-import CreatePost from "./Post/CreatePost";
+import { isEmpty } from "./utils/tools";
 
-import { isEmpty } from "../components/utils/tools";
-import { UidContext } from "./AppContext";
-
-const Thread = (props) => {
-  const [loadPosts, setLoadPosts] = useState(true);
-  const [addPost, setAddPost] = useState(false);
+const Thread = () => {
+  const [loadPost, setLoadPost] = useState(true);
   const [count, setCount] = useState(5);
-  const { userId, pseudo } = useContext(UidContext);
-  const posts = props.posts;
-
-  useEffect(() => {
-    if (loadPosts) {
-      setLoadPosts(false);
-      setCount(count + 5);
-    }
-    window.addEventListener("scroll", loadMore);
-    return () => window.removeEventListener("scroll", loadMore);
-  }, [loadPosts, /*  dispatch, */ count]);
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.postReducer);
 
   const loadMore = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >
       document.scrollingElement.scrollHeight
     ) {
-      setLoadPosts(true);
+      setLoadPost(true);
     }
   };
 
-  const handleAddPost = () => {
-    setAddPost(true);
-  };
-  const handleCancelPost = () => {
-    setAddPost(false);
-  };
+  useEffect(() => {
+    if (loadPost) {
+      dispatch(getPosts(count));
+      setLoadPost(false);
+      setCount(count + 5);
+    }
+
+    window.addEventListener("scroll", loadMore);
+    return () => window.removeEventListener("scroll", loadMore);
+  }, [loadPost, dispatch, count]);
+
   return (
-    <section className="container">
-      {addPost === false ? (
-        <button
-          onClick={handleAddPost}
-          className="btn btn-primary text-white btn-active"
-        >
-          Ajouter
-        </button>
-      ) : (
-        <React.Fragment>
-          <button
-            onClick={handleCancelPost}
-            className="btn btn-primary text-white btn-active"
-          >
-            Annuler
-          </button>
-          <CreatePost cle={userId} pseudo={pseudo} />
-        </React.Fragment>
-      )}
-      <div className="container thread">
-        <h2>Fil d'actualité</h2>
-        <ul>
-          {!isEmpty(posts[0]) &&
-            posts.map((post) => {
-              return <Card post={post} posts={posts} />;
-            })}
-        </ul>
-      </div>
-    </section>
+    <div className="thread-container">
+      {!isEmpty(posts[0]) &&
+        posts.map((post) => {
+          return <Card post={post} key={post._id} />;
+        })}
+    </div>
   );
 };
 
