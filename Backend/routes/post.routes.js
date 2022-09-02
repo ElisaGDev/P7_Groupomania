@@ -8,7 +8,7 @@ router.post("/", checkUser, multer, postController.createPost);
 router.put("/:id", checkUser, multer, postController.updatePost);
 router.delete("/:id", checkUser, postController.deletePost);
 router.patch("/like-post/:id", checkUser, postController.likePost);
-router.patch("/unlike-post/:id", checkUser, postController.dislikePost);
+router.patch("/unlike-post/:id", checkUser, postController.unLikePost);
 
 // comments
 router.patch("/comment-post/:id", checkUser, postController.commentPost);

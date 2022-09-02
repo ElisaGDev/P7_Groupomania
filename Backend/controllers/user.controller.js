@@ -30,7 +30,7 @@ exports.uploadProfil = async (req, res) => {
       req.body.userId,
       {
         $set: {
-          picture: `${req.protocol}://${req.get("host")}/uploads/profil/${
+          picture: `${req.protocol}://${req.get("host")}/uploads/${
             req.file.filename
           }`,
         },
