@@ -1,10 +1,8 @@
 const router = require("express").Router();
 const authController = require("../controllers/log.controller");
 const userController = require("../controllers/user.controller");
-const uploadController = require("../controllers/upload.controller");
-const multer = require("multer");
-const upload = multer();
 const { checkUser } = require("../middleware/auth.middleware");
+const multer = require("../middleware/multer");
 
 // auth
 router.post("/register", authController.register);
@@ -18,6 +16,6 @@ router.put("/:id", checkUser, userController.updateUser);
 router.delete("/:id", checkUser, userController.deleteUser);
 
 // upload
-router.post("/upload", upload.single("file"), uploadController.uploadProfil);
+router.post("/upload", checkUser, multer, userController.uploadProfil);
 
 module.exports = router;

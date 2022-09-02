@@ -24,6 +24,26 @@ exports.getOneUser = (req, res, next) => {
     });
 };
 
+exports.uploadProfil = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(
+      req.body.userId,
+      {
+        $set: {
+          picture: `${req.protocol}://${req.get("host")}/uploads/profil/${
+            req.file.filename
+          }`,
+        },
+      },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
+  } catch (err) {
+    return res.status(500).send({ message: err });
+  }
+};
+
 exports.updateUser = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("Id inconnu" + req.params.id);
