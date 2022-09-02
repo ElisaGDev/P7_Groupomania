@@ -1,17 +1,15 @@
 const Post = require("../models/post.model");
-const ObjectId = require("mongoose").Types.ObjectId;
+const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
-const jwt = require("jsonwebtoken");
-const { promisify } = require("util");
 
 exports.getPosts = (req, res, next) => {
-  Post.find((err, data) => {
-    if (!err) {
-      res.status(200).json(data);
+  Post.find((error, docs) => {
+    if (!error) {
+      res.send(docs);
     } else {
-      console.log("Erreur pour récupérer les posts!" + err);
+      console.log("Error to get data :" + error);
     }
-  }).sort({ createdAt: -1 });
+  }).sort({ createdAt: -1 }); // tri du plus récent au plus ancien post
 };
 
 exports.getOnePost = (req, res, next) => {
@@ -40,14 +38,14 @@ exports.createPost = async (req, res, next) => {
   try {
     const post = await newPost.save();
     return res.status(201).json(post);
-  } catch (err) {
-    return res.status(400).send(err);
+  } catch (error) {
+    return res.status(400).send(error);
   }
 };
 
 exports.updatePost = (req, res, next) => {
   const userData = res.locals.user;
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("Id inconnu :" + req.params.id);
   Post.findOne({ _id: req.params.id })
     .then((post) => {
@@ -88,7 +86,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   const userData = res.locals.user;
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("Id inconnu :" + req.params.id);
   Post.findOne({ _id: req.params.id })
     .then((post) => {
@@ -108,7 +106,7 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.likePost = async (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
@@ -141,7 +139,7 @@ exports.likePost = async (req, res) => {
 };
 
 exports.dislikePost = async (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
@@ -174,11 +172,11 @@ exports.dislikePost = async (req, res) => {
 };
 
 exports.commentPost = (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
-    return PostModel.findByIdAndUpdate(
+    return Post.findByIdAndUpdate(
       req.params.id,
       {
         $push: {
@@ -200,11 +198,11 @@ exports.commentPost = (req, res) => {
 };
 
 exports.editCommentPost = (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
-    return PostModel.findById(req.params.id, (err, docs) => {
+    return Post.findById(req.params.id, (err, docs) => {
       const theComment = docs.comments.find((comment) =>
         comment._id.equals(req.body.commentId)
       );
@@ -223,11 +221,11 @@ exports.editCommentPost = (req, res) => {
 };
 
 exports.deleteCommentPost = (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
-    return PostModel.findByIdAndUpdate(
+    return Post.findByIdAndUpdate(
       req.params.id,
       {
         $pull: {

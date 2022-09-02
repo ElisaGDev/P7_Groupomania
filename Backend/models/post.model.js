@@ -1,13 +1,10 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     posterId: {
       type: String,
       required: true,
-    },
-    posterPseudo: {
-      type: String,
     },
     message: {
       type: String,
@@ -41,4 +38,4 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Post", postSchema);

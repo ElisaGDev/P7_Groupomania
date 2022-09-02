@@ -33,7 +33,7 @@ export default function RegisterForm() {
     } else {
       axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}auth/register`,
+        url: `${process.env.REACT_APP_API_URL}api/user/register`,
         data: {
           pseudo,
           email,

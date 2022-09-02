@@ -4,7 +4,7 @@ import { isEmpty, timestampParser } from "../utils/tools";
 import { NavLink } from "react-router-dom";
 import { addPost, getPosts } from "../../actions/post.actions";
 
-const CreatePost = () => {
+const NewPostForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
@@ -74,7 +74,7 @@ const CreatePost = () => {
         <>
           <NavLink to="/profil">
             <div className="user-info">
-              <img src={userData.picture} width="30px" alt="user-img" />
+              <img src={userData.picture} alt="user-img" />
             </div>
           </NavLink>
           <div className="post-form">
@@ -88,7 +88,7 @@ const CreatePost = () => {
             {message || postPicture || video.length > 20 ? (
               <li className="card-container">
                 <div className="card-left">
-                  <img src={userData.picture} width="30px" alt="user-pic" />
+                  <img src={userData.picture} alt="user-pic" />
                 </div>
                 <div className="card-right">
                   <div className="card-header">
@@ -151,4 +151,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default NewPostForm;

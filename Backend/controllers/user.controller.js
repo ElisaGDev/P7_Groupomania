@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const ObjectId = require("mongoose").Types.ObjectId;
+const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const filesDestination = `${__dirname}/../uploads`;
 
@@ -24,28 +24,8 @@ exports.getOneUser = (req, res, next) => {
     });
 };
 
-exports.uploadProfil = async (req, res, next) => {
-  try {
-    await User.findByIdAndUpdate(
-      req.body.userId,
-      {
-        $set: {
-          picture: `${req.protocol}://${req.get("host")}/uploads/${
-            req.file.filename
-          }`,
-        },
-      },
-      { new: true, upsert: true, setDefaultsOnInsert: true }
-    )
-      .then((data) => res.send(data))
-      .catch((err) => res.status(500).send({ message: err }));
-  } catch (err) {
-    return res.status(500).send({ message: err });
-  }
-};
-
 exports.updateUser = async (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("Id inconnu" + req.params.id);
   try {
     await User.findOneAndUpdate(
@@ -69,7 +49,7 @@ exports.updateUser = async (req, res, next) => {
 };
 
 exports.deleteUser = async (req, res, next) => {
-  if (!ObjectId.isValid(req.params.id))
+  if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
 
   try {
@@ -82,8 +62,8 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.follow = async (req, res, next) => {
   if (
-    !ObjectId.isValid(req.params.id) ||
-    !ObjectId.isValid(req.body.idToFollow)
+    !ObjectID.isValid(req.params.id) ||
+    !ObjectID.isValid(req.body.idToFollow)
   )
     return res.status(400).send("ID inconnu: " + req.params.id);
   try {
@@ -108,8 +88,8 @@ exports.follow = async (req, res, next) => {
 
 exports.unfollow = async (req, res, next) => {
   if (
-    !ObjectId.isValid(req.params.id) ||
-    !ObjectId.isValid(req.body.idToUnfollow)
+    !ObjectID.isValid(req.params.id) ||
+    !ObjectID.isValid(req.body.idToUnfollow)
   )
     return res.status(400).send("ID inconnu: " + req.params.id);
   try {

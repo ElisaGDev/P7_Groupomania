@@ -10,7 +10,8 @@ exports.checkUser = (req, res, next) => {
       async (err, decodedToken) => {
         if (err) {
           res.locals.user = null;
-          next();
+          res.cookie("jwt", "", { maxAge: 1 });
+          res.status(401).json({ message: "non connecté" });
         } else {
           let user = await User.findById(decodedToken.id);
           res.locals.user = user;
@@ -19,7 +20,8 @@ exports.checkUser = (req, res, next) => {
       }
     );
   } else {
-    res.status(401).send("Absence de token!");
+    res.status(401).json({ message: "non connecté" });
+    res.locals.user = null;
   }
 };
 
@@ -31,8 +33,8 @@ exports.requireAuth = (req, res, next) => {
       process.env.USER_TOKEN_PASS,
       async (err, decodedToken) => {
         if (err) {
-          res.status(200).json("Token invalide!");
           console.log(err);
+          res.send(200).json("no token");
         } else {
           console.log(decodedToken.id);
           next();
@@ -40,6 +42,6 @@ exports.requireAuth = (req, res, next) => {
       }
     );
   } else {
-    console.log("Absence de token!");
+    console.log("No token");
   }
 };

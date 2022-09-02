@@ -1,48 +1,43 @@
-const http = require("http");
-const app = require("./app");
+const express = require("express");
+const cookieParser = require("cookie-parser");
 
-const normalizePort = (val) => {
-  const port = parseInt(val, 10);
+const userRoutes = require("./routes/user.routes");
+const postRoutes = require("./routes/post.routes");
+require("dotenv").config({ path: "./config/.env" });
+require("./config/db");
+const { checkUser, requireAuth } = require("./middleware/auth.middleware");
+const cors = require("cors");
+const path = require("path");
+const helmet = require("helmet");
 
-  if (isNaN(port)) {
-    return val;
-  }
-  if (port >= 0) {
-    return port;
-  }
-  return false;
+const app = express();
+
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
 };
-const port = normalizePort(process.env.PORT || "5000");
-app.set("port", port);
+app.use(cors(corsOptions));
 
-const errorHandler = (error) => {
-  if (error.syscall !== "listen") {
-    throw error;
-  }
-  const address = server.address();
-  const bind =
-    typeof address === "string" ? "pipe " + address : "port: " + port;
-  switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges.");
-      process.exit(1);
-      break;
-    case "EADDRINUSE":
-      console.error(bind + " is already in use.");
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-};
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(helmet.crossOriginResourcePolicy({ policy: "same-site" }));
 
-const server = http.createServer(app);
-
-server.on("error", errorHandler);
-server.on("listening", () => {
-  const address = server.address();
-  const bind = typeof address === "string" ? "pipe " + address : "port " + port;
-  console.log("Listening on " + bind);
+// jwt
+app.get("*", checkUser);
+app.get("/api/token", requireAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id);
 });
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// routes
+app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 
-server.listen(port);
+// server
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
+});

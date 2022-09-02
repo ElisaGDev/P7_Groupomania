@@ -12,7 +12,7 @@ export default function LoginForm() {
     // Envoie de l'email et mot de passe au backend
     axios
       .post(
-        `${process.env.REACT_APP_API_URL}auth/login`,
+        `${process.env.REACT_APP_API_URL}api/user/login`,
         {
           email,
           password,
