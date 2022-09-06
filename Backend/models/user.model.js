@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
+const { isEmail } = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      validate: [isEmail],
       unique: true,
       lowercase: true,
     },
@@ -25,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: "./uploads/profil/random-user.png",
+      default: `http://localhost:${process.env.PORT}/uploads/random-user.png`,
     },
     bio: {
       type: String,
@@ -61,9 +63,9 @@ userSchema.statics.login = async function (email, password) {
     if (auth) {
       return user;
     }
-    throw Error("incorrect password");
+    throw Error("Mot de passe incorrect");
   }
-  throw Error("incorrect email");
+  throw Error("Email incorrect");
 };
 
 userSchema.plugin(uniqueValidator);

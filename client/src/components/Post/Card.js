@@ -32,43 +32,72 @@ const Card = ({ post }) => {
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
   }, [usersData]);
+
   return (
-    <li className="card-container" key={post._id}>
+    <li className="card" key={post._id}>
       {isLoading ? (
         <i className="fas fa-spinner fa-spin"></i>
       ) : (
         <>
-          <div className="card-left">
-            <img
-              src={
-                !isEmpty(usersData[0]) &&
-                usersData
-                  .map((user) => {
-                    if (user._id === post.posterId) return user.picture;
-                    else return null;
-                  })
-                  .join("")
-              }
-              alt="poster-pic"
-            />
-          </div>
-          <div className="card-right">
-            <div className="card-header">
-              <div className="pseudo">
-                <h3>
-                  {!isEmpty(usersData[0]) &&
-                    usersData
-                      .map((user) => {
-                        if (user._id === post.posterId) return user.pseudo;
-                        else return null;
-                      })
-                      .join("")}
-                </h3>
-              </div>
-              <span>{dateParser(post.createdAt)}</span>
+          <header className="card__primary-title">
+            <figure className="image image--avatar">
+              <img
+                src={
+                  !isEmpty(usersData[0]) &&
+                  usersData
+                    .map((user) => {
+                      if (user._id === post.posterId) return user.picture;
+                      else return null;
+                    })
+                    .join("")
+                }
+                alt="poster-pic"
+              />
+            </figure>
+            <div className="item item--two-lines">
+              <h2 className="text-medium text-bold">
+                {!isEmpty(usersData[0]) &&
+                  usersData
+                    .map((user) => {
+                      if (user._id === post.posterId) return user.pseudo;
+                      else return null;
+                    })
+                    .join("")}
+              </h2>
+              <h3 className="text-secondary text-normal text-small">
+                {dateParser(post.createdAt)}
+              </h3>
             </div>
-            {isUpdated === false && <p>{post.message}</p>}
-            {isUpdated && (
+            <div className="button-group">
+              {userData._id === post.posterId && userData.role === "user" && (
+                <div className="button-container">
+                  <div
+                    className="button-item"
+                    onClick={() => setIsUpdated(!isUpdated)}
+                  >
+                    <img src="./img/icons/edit.svg" alt="edit" />
+                  </div>
+                  <DeleteCard id={post._id} />
+                </div>
+              )}
+              {userData.role === "admin" && (
+                <div className="button-container">
+                  <div
+                    className="button-item"
+                    onClick={() => setIsUpdated(!isUpdated)}
+                  >
+                    <img src="./img/icons/edit.svg" alt="edit" />
+                  </div>
+                  <DeleteCard id={post._id} />
+                </div>
+              )}
+            </div>
+          </header>
+          <div className="card__body">
+            {isUpdated === false && (
+              <div className="card__supporting-text">{post.message}</div>
+            )}
+            {isUpdated === true && (
               <div className="update-post">
                 <textarea
                   defaultValue={post.message}
@@ -93,49 +122,34 @@ const Card = ({ post }) => {
                 </div>
               </div>
             )}
-            {post.picture && (
-              <img src={post.picture} alt="card-pic" className="card-pic" />
-            )}
-            {post.video && (
-              <iframe
-                width="500"
-                height="300"
-                src={post.video}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title={post._id}
-              ></iframe>
-            )}
-            {userData._id === post.posterId && userData.admin === false && (
-              <div className="button-container">
-                <div onClick={() => setIsUpdated(!isUpdated)}>
-                  <img src="./img/icons/edit.svg" alt="edit" />
-                </div>
-                <DeleteCard id={post._id} />
-              </div>
-            )}
-            {userData.admin === true && (
-              <div className="button-container">
-                <div onClick={() => setIsUpdated(!isUpdated)}>
-                  <img src="./img/icons/edit.svg" alt="edit" />
-                </div>
-                <DeleteCard id={post._id} />
-              </div>
-            )}
-            <div className="card-footer">
-              <div className="comment-icon">
-                <img
-                  onClick={() => setShowComments(!showComments)}
-                  src="./img/icons/message1.svg"
-                  alt="comment"
-                />
-                <span>{post.comments.length}</span>
-              </div>
-              <LikeButton post={post} />
-            </div>
-            {showComments && <CardComments post={post} />}
+            <figure className="image">
+              {post.picture && (
+                <img src={post.picture} alt="card-pic" className="card-pic" />
+              )}
+              {post.video && (
+                <iframe
+                  width="500"
+                  height="300"
+                  src={post.video}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title={post._id}
+                ></iframe>
+              )}
+            </figure>
           </div>
+          <footer className="card__actions">
+            <img
+              onClick={() => setShowComments(!showComments)}
+              src="./img/icons/message1.svg"
+              alt="comment"
+              className="btn btn--icon"
+            />
+            <span>{post.comments.length}</span>
+            <LikeButton post={post} />
+          </footer>
+          {showComments && <CardComments post={post} />}
         </>
       )}
     </li>

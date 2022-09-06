@@ -34,17 +34,17 @@ const EditDeleteComment = ({ comment, postId }) => {
 
   return (
     <div className="edit-comment">
-      {isAuthor && edit === false && userData.admin === false && (
+      {isAuthor && edit === false && userData.role === "user" && (
         <span onClick={() => setEdit(!edit)}>
           <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
-      {userData.admin === true && edit === false && (
+      {userData.role === "admin" && edit === false && (
         <span onClick={() => setEdit(!edit)}>
           <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
-      {isAuthor && edit && userData.admin === false && (
+      {isAuthor && edit && userData.role === "user" && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <br />
           <input
@@ -70,7 +70,7 @@ const EditDeleteComment = ({ comment, postId }) => {
           </div>
         </form>
       )}
-      {userData.admin === true && edit && (
+      {userData.role === "admin" && edit && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <br />
           <input

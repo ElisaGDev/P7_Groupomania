@@ -45,65 +45,50 @@ exports.createPost = async (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  const userData = res.locals.user;
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("Id inconnu :" + req.params.id);
-  Post.findOne({ _id: req.params.id })
-    .then((post) => {
-      postData = post;
-      if (postData.posterId == userData._id || userData.role === "admin") {
-        if (req.body.picture) {
-          const updatePostContent = {
-            message: req.body.message,
-            picture: req.body.picture,
-          };
-          Post.findByIdAndUpdate(
-            req.params.id,
-            { $set: updatePostContent },
-            { new: true },
-            (err, data) => {
-              if (!err) res.status(200).send(data);
-              else console.log("Mise à jour du post impossible! " + err);
-            }
-          );
+  if (!ObjectID.isValid(req.params.id)) {
+    return res.status(400).json("ID Unknown : " + req.params.id);
+  } else {
+    const updatedRecord = {};
+    if (req.body.message && req.body.message !== "null") {
+      updatedRecord.message = req.body.message;
+    }
+    if (req.file) {
+      updatedRecord.picture = `${req.protocol}://${req.get("host")}/uploads/${
+        req.file.filename
+      }`;
+    }
+    Post.findByIdAndUpdate(
+      req.params.id,
+      { $set: updatedRecord },
+      { new: true },
+      (error, data) => {
+        if (!error) {
+          res.send(data);
         } else {
-          const updatePostContent = { message: req.body.message };
-          Post.findByIdAndUpdate(
-            req.params.id,
-            { $set: updatePostContent },
-            { new: true },
-            (err, data) => {
-              if (!err) res.status(200).send(data);
-              else console.log("Mise à jour du post impossible! " + err);
-            }
-          );
+          console.log("Update error : " + error);
         }
       }
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
-    });
+    );
+  }
 };
 
 exports.deletePost = (req, res, next) => {
-  const userData = res.locals.user;
-  if (!ObjectID.isValid(req.params.id))
-    return res.status(400).send("Id inconnu :" + req.params.id);
-  Post.findOne({ _id: req.params.id })
-    .then((post) => {
-      postData = post;
-      if (postData.posterId == userData._id || userData.role === "admin") {
-        fs.unlink(`../client/public/images/posts/${postData.picture}`, () => {
-          Post.findByIdAndRemove(req.params.id, (err, data) => {
-            if (!err) res.status(200).send(data);
-            else console.log("Suppression du post impossible! " + err);
-          });
-        });
+  if (!ObjectID.isValid(req.params.id)) {
+    return res.status(400).json("ID Unknown : " + req.params.id);
+  } else {
+    Post.findOne({ _id: req.params.id }).then((post) => {
+      if (!post) {
+        res.status(404).json({ error: new Error("Post non trouvé !") });
       }
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
+      const filename = post.picture.split("/uploads/")[1];
+
+      fs.unlink(`./uploads/${filename}`, () => {
+        Post.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "Post supprimé !" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
     });
+  }
 };
 
 exports.likePost = async (req, res, next) => {
