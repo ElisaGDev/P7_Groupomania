@@ -14,6 +14,8 @@ router.get("/", checkUser, userController.getAllUsers);
 router.get("/:id", checkUser, userController.getOneUser);
 router.put("/:id", checkUser, userController.updateUser);
 router.delete("/:id", checkUser, userController.deleteUser);
+router.patch("/follow/:id", userController.follow);
+router.patch("/unfollow/:id", userController.unfollow);
 
 // upload
 router.post("/upload", checkUser, multer, userController.uploadProfil);

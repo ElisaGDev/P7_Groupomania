@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/post.actions";
 import Card from "./Post/Card";
+import NewPostForm from "../components/Post/NewPostForm";
 import { isEmpty } from "./utils/tools";
+import Trends from "./Trends";
+import FriendsHint from "../components/Profil/FriendsHint";
 
 const Thread = () => {
   const [loadPost, setLoadPost] = useState(true);
@@ -31,11 +34,25 @@ const Thread = () => {
   }, [loadPost, dispatch, count]);
 
   return (
-    <div className="thread-container">
-      {!isEmpty(posts[0]) &&
-        posts.map((post) => {
-          return <Card post={post} key={post._id} />;
-        })}
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-3 bg-secondary">Profil card</div>
+        <div className="col-lg-6">
+          <div className="card-postform">
+            <NewPostForm />
+          </div>
+          <div className="card-container">
+            {!isEmpty(posts[0]) &&
+              posts.map((post) => {
+                return <Card post={post} key={post._id} />;
+              })}
+          </div>
+        </div>
+        <div className="col-lg-3">
+          <Trends />
+          <FriendsHint />
+        </div>
+      </div>
     </div>
   );
 };
