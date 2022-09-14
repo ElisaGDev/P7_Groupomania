@@ -1,0 +1,26 @@
+.get-friends-container{
+    ul{
+        padding-left: 0px !important;
+    }
+}
+.user-picture{
+    width: 60px !important;
+    margin: 10px;
+}
+
+.user-hint{
+    .card{
+        flex-direction:row ;
+       
+    }
+    p{
+        align-self: center;
+        margin-bottom: 0px !important;
+        margin-left: 10px;
+        flex-grow: 2;
+    }
+    span{
+        align-self: center;
+        margin: 10px;
+    }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import cookie from "js-cookie";
+import NavLink from "react-bootstrap/NavLink";
 
 export default function Logout() {
   const removeCookie = (key) => {
@@ -19,8 +20,8 @@ export default function Logout() {
     window.location = "/profil";
   };
   return (
-    <li onClick={logout}>
-      <img src="./img/icons/logout.svg" className="pe-auto" alt="logout" />
-    </li>
+    <NavLink onClick={logout}>
+      <img src="./img/icons/logout.svg" alt="logout" width="25" />
+    </NavLink>
   );
 }

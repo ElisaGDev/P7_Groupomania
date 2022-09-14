@@ -1,0 +1,32 @@
+.profil-container .card{
+    border: none;
+}
+
+.profil-header{
+    flex-direction: column;
+    text-align: center;
+    border-bottom: none !important;
+}
+
+.card-header{
+    position: relative;
+}
+
+.profil-title{
+    margin-bottom : 4rem;
+}
+
+.profil-subtitle{
+    margin-top : 3rem;
+}
+
+.img-profil{
+    position: absolute;
+    left: 50%;
+    min-width: 80px;
+    max-width: 100px;
+    transition: all .15s ease;
+    transform: translate(-50%, -70%);
+    border-radius: 0.375rem;
+    width: auto !important;
+}

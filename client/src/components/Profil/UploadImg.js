@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadPicture } from "../../actions/user.actions";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const UploadImg = () => {
   const [file, setFile] = useState();
@@ -18,9 +20,9 @@ const UploadImg = () => {
   };
 
   return (
-    <form action="" onSubmit={handlePicture} className="upload-pic">
-      <label htmlFor="file">Changer d'image</label>
-      <input
+    <Form action="" onSubmit={handlePicture} className="upload-pic">
+      <Form.Label htmlFor="file">Changer d'image</Form.Label>
+      <Form.Control
         type="file"
         id="file"
         name="file"
@@ -28,8 +30,10 @@ const UploadImg = () => {
         onChange={(e) => setFile(e.target.files[0])}
       />
       <br />
-      <input type="submit" value="Envoyer" />
-    </form>
+      <Button type="submit" value="Envoyer" className="text-white">
+        Envoyer
+      </Button>
+    </Form>
   );
 };
 

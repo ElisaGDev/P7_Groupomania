@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComment, getPosts } from "../../actions/post.actions";
 import { isEmpty, timestampParser } from "../utils/tools";
 import EditDeleteComment from "./EditDeleteComments";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const CardComments = ({ post }) => {
   const [text, setText] = useState("");
@@ -24,7 +27,7 @@ const CardComments = ({ post }) => {
     <div className="comments-container">
       {post.comments.map((comment) => {
         return (
-          <div
+          <Card
             className={
               comment.commenterId === userData._id
                 ? "comment-container client"
@@ -32,7 +35,7 @@ const CardComments = ({ post }) => {
             }
             key={comment._id}
           >
-            <div className="left-part">
+            <Card.Header className="left-part">
               <img
                 src={
                   !isEmpty(usersData[0]) &&
@@ -45,32 +48,37 @@ const CardComments = ({ post }) => {
                 }
                 alt="commenter-pic"
               />
-            </div>
-            <div className="right-part">
-              <div className="comment-header">
-                <div className="pseudo">
-                  <h3>{comment.commenterPseudo}</h3>
-                </div>
-                <span>{timestampParser(comment.timestamp)}</span>
-              </div>
-              <p>{comment.text}</p>
+              <Card.Text as="h6" className="card-pseudo fw-bold">
+                {comment.commenterPseudo}
+                <span className="date fw-light">
+                  {timestampParser(comment.timestamp)}
+                </span>
+              </Card.Text>
+            </Card.Header>
+            <Card.Body className="right-part">
+              <p className="text-comment">{comment.text}</p>
               <EditDeleteComment comment={comment} postId={post._id} />
-            </div>
-          </div>
+            </Card.Body>
+          </Card>
         );
       })}
       {userData._id && (
-        <form action="" onSubmit={handleComment} className="comment-form">
-          <input
+        <Form action="" onSubmit={handleComment} className="comment-form">
+          <Form.Control
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
             value={text}
             placeholder="Laisser un commentaire"
           />
-          <br />
-          <input type="submit" value="Envoyer" />
-        </form>
+          <Button
+            type="submit"
+            value="Envoyer"
+            className="btn-comment text-white"
+          >
+            Envoyer
+          </Button>
+        </Form>
       )}
     </div>
   );

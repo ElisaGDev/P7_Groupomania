@@ -3,6 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty, timestampParser } from "../utils/tools";
 import { NavLink } from "react-router-dom";
 import { addPost, getPosts } from "../../actions/post.actions";
+import Container from "react-bootstrap/Container";
+import Spinner from "react-bootstrap/Spinner";
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
 
 const NewPostForm = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,87 +73,105 @@ const NewPostForm = () => {
   }, [userData, message, video]);
 
   return (
-    <div className="post-container">
+    <Container className="postform-container">
       {isLoading ? (
-        <i className="fas fa-spinner fa-pulse"></i>
+        <Spinner animation="border" variant="warning" width="text-center" />
       ) : (
         <>
           <NavLink to="/profil">
             <div className="user-info">
-              <img src={userData.picture} alt="user-img" width="50px" />
+              <img
+                src={userData.picture}
+                className="rounded-circle"
+                alt="user-img"
+                width="50px"
+              />
             </div>
           </NavLink>
-          <div className="post-form">
-            <textarea
-              name="message"
-              id="message"
-              placeholder="Rédiger un message !"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-            />
+          <Form>
+            <Form.Group className="post-form">
+              <Form.Label>Crée un nouveau post !</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="message"
+                id="message"
+                placeholder="Rédiger votre message !"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+              />
+            </Form.Group>
             {message || postPicture || video.length > 20 ? (
-              <li className="card-container">
-                <div className="card-left">
-                  <img src={userData.picture} alt="user-pic" />
-                </div>
-                <div className="card-right">
-                  <div className="card-header">
-                    <div className="pseudo">
-                      <h3>{userData.pseudo}</h3>
-                    </div>
-                    <span>{timestampParser(Date.now())}</span>
-                  </div>
-                  <div className="content">
-                    <p>{message}</p>
-                    <img src={postPicture} alt="" width="50%" />
-                    {video && (
-                      <iframe
-                        src={video}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        title={video}
-                      ></iframe>
-                    )}
-                  </div>
-                </div>
-              </li>
+              <Card as="li" className="card-thread">
+                <Card.Header className="bg-light">
+                  <Card.Img
+                    src={userData.picture}
+                    alt="user-pic"
+                    className="image image--avatar"
+                  />
+                  <Card.Text as="h5" className="card-pseudo fw-bold">
+                    <h3>{userData.pseudo}</h3>
+                    <span className="date fw-light">
+                      {timestampParser(Date.now())}
+                    </span>
+                  </Card.Text>
+                </Card.Header>
+                <Card.Body className="card__body">
+                  <Card.Text className="card__supporting-text">
+                    {message}
+                  </Card.Text>
+                  <Card.Img src={postPicture} alt="" width="50%" />
+                  {video && (
+                    <iframe
+                      src={video}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={video}
+                    ></iframe>
+                  )}
+                </Card.Body>
+              </Card>
             ) : null}
-            <div className="footer-form">
-              <div className="icon">
+            <Card.Footer className="footer-form">
+              <Form.Group className="form-control .has-feedback">
                 {isEmpty(video) && (
                   <>
-                    <img src="./img/icons/picture.svg" alt="img" />
-                    <input
+                    <Card.Img
+                      src="./img/icons/picture.svg"
+                      alt="img"
+                      className="form-control-feedback img-postform"
+                    />
+                    <Form.Control
                       type="file"
                       id="file-upload"
                       name="file"
                       accept=".jpg, .jpeg, .png"
                       onChange={(e) => handlePicture(e)}
+                      className="form-control"
                     />
                   </>
                 )}
                 {video && (
-                  <button onClick={() => setVideo("")}>
+                  <Button className="text-white" onClick={() => setVideo("")}>
                     Supprimer la video
-                  </button>
+                  </Button>
                 )}
-              </div>
-              <div className="btn-send">
+              </Form.Group>
+              <InputGroup className="btn-send">
                 {message || postPicture || video.length > 20 ? (
-                  <button className="cancel" onClick={cancelPost}>
+                  <Button className="cancel text-white" onClick={cancelPost}>
                     Annuler message
-                  </button>
+                  </Button>
                 ) : null}
-                <button className="send" onClick={handlePost}>
+                <Button className="send text-white" onClick={handlePost}>
                   Envoyer
-                </button>
-              </div>
-            </div>
-          </div>
+                </Button>
+              </InputGroup>
+            </Card.Footer>
+          </Form>
         </>
       )}
-    </div>
+    </Container>
   );
 };
 

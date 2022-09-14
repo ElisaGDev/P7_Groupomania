@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
 import { useDispatch } from "react-redux";
 import { likePost, unlikePost } from "../../actions/post.actions";
+import Card from "react-bootstrap/Card";
 
 const LikeButton = ({ post }) => {
   const [liked, setLiked] = useState(false);
@@ -24,15 +25,25 @@ const LikeButton = ({ post }) => {
   }, [uid, post.likers, liked]);
 
   return (
-    <div className="btn btn--icon">
+    <>
       {uid && liked === false && (
-        <img src="./img/icons/like.svg" onClick={like} alt="like" />
+        <Card.Img
+          src="./img/icons/like.svg"
+          onClick={like}
+          alt="like"
+          className="btn btn-icon"
+        />
       )}
       {uid && liked && (
-        <img src="./img/icons/likefull.svg" onClick={unlike} alt="unlike" />
+        <Card.Img
+          src="./img/icons/likefull.svg"
+          onClick={unlike}
+          alt="unlike"
+          className="btn btn-icon"
+        />
       )}
       <span>{post.likers.length}</span>
-    </div>
+    </>
   );
 };
 

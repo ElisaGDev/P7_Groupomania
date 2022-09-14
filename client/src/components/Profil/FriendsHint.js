@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { isEmpty } from "../utils/tools";
 import FollowHandler from "./FollowHandler";
+import Spinner from "react-bootstrap/Spinner";
+import Card from "react-bootstrap/Card";
 
 const FriendsHint = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,11 +43,9 @@ const FriendsHint = () => {
 
   return (
     <div className="get-friends-container">
-      <h4>Suggestions</h4>
+      <h4 className="text-tertary fw-bold">Suggestions</h4>
       {isLoading ? (
-        <div className="icon">
-          <i className="fas fa-spinner fa-pulse"></i>
-        </div>
+        <Spinner animation="border" variant="warning" width="text-center" />
       ) : (
         <ul>
           {friendsHint &&
@@ -54,16 +54,18 @@ const FriendsHint = () => {
                 if (user === usersData[i]._id) {
                   return (
                     <li className="user-hint" key={user}>
-                      <img
-                        src={usersData[i].picture}
-                        alt="user-pic"
-                        width="40px"
-                      />
-                      <p>{usersData[i].pseudo}</p>
-                      <FollowHandler
-                        idToFollow={usersData[i]._id}
-                        type={"suggestion"}
-                      />
+                      <Card>
+                        <Card.Img
+                          src={usersData[i].picture}
+                          alt="user-pic"
+                          className="user-picture"
+                        />
+                        <p>{usersData[i].pseudo}</p>
+                        <FollowHandler
+                          idToFollow={usersData[i]._id}
+                          type={"suggestion"}
+                        />
+                      </Card>
                     </li>
                   );
                 }

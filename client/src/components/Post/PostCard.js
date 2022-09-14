@@ -5,8 +5,12 @@ import LikeButton from "./LikeButton";
 import { updatePost } from "../../actions/post.actions";
 import DeleteCard from "./DeleteCard";
 import CardComments from "./CardComments";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import CardHeader from "react-bootstrap/CardHeader";
+import Spinner from "react-bootstrap/Spinner";
 
-const Card = ({ post }) => {
+const PostCard = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
@@ -34,66 +38,63 @@ const Card = ({ post }) => {
   }, [usersData]);
 
   return (
-    <li className="card" key={post._id}>
+    <Card as="li" className="card-thread" key={post._id}>
       {isLoading ? (
-        <i className="fas fa-spinner fa-spin"></i>
+        <Spinner animation="border" variant="warning" width="text-center" />
       ) : (
         <>
-          <header className="card__primary-title">
-            <figure className="image image--avatar">
-              <img
-                src={
-                  !isEmpty(usersData[0]) &&
-                  usersData
-                    .map((user) => {
-                      if (user._id === post.posterId) return user.picture;
-                      else return null;
-                    })
-                    .join("")
-                }
-                alt="poster-pic"
-              />
-            </figure>
-            <div className="item item--two-lines">
-              <h2 className="text-medium text-bold">
-                {!isEmpty(usersData[0]) &&
-                  usersData
-                    .map((user) => {
-                      if (user._id === post.posterId) return user.pseudo;
-                      else return null;
-                    })
-                    .join("")}
-              </h2>
-              <h3 className="text-secondary text-normal text-small">
+          <CardHeader className="bg-light">
+            <Card.Img
+              className="image image--avatar"
+              src={
+                !isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                    if (user._id === post.posterId) return user.picture;
+                    else return null;
+                  })
+                  .join("")
+              }
+              alt="poster-pic"
+            />
+            <Card.Text as="h5" className="card-pseudo fw-bold">
+              {!isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                    if (user._id === post.posterId) return user.pseudo;
+                    else return null;
+                  })
+                  .join("")}
+              <span className="date fw-light">
                 {dateParser(post.createdAt)}
-              </h3>
-            </div>
-            <div className="button-group">
+              </span>
+            </Card.Text>
+            <div className="btn-group">
               {userData._id === post.posterId && userData.role === "user" && (
-                <div className="button-container">
-                  <div
-                    className="button-item"
+                <div className="btn_container">
+                  <Button
+                    className="btn-icon"
                     onClick={() => setIsUpdated(!isUpdated)}
                   >
-                    <img src="./img/icons/edit.svg" alt="edit" />
-                  </div>
+                    <Card.Img src="./img/icons/edit.svg" alt="edit" />
+                  </Button>
                   <DeleteCard id={post._id} />
                 </div>
               )}
               {userData.role === "admin" && (
-                <div className="button-container">
-                  <div
-                    className="button-item"
+                <div className="btn-container">
+                  <Button
+                    className="btn-icon"
                     onClick={() => setIsUpdated(!isUpdated)}
                   >
-                    <img src="./img/icons/edit.svg" alt="edit" />
-                  </div>
+                    <Card.Img src="./img/icons/edit.svg" alt="edit" />
+                  </Button>
                   <DeleteCard id={post._id} />
                 </div>
               )}
             </div>
-          </header>
-          <div className="card__body">
+          </CardHeader>
+          <Card.Body className="card__body">
             {isUpdated === false && (
               <div className="card__supporting-text">{post.message}</div>
             )}
@@ -105,7 +106,7 @@ const Card = ({ post }) => {
                 />
                 <div className="icon">
                   <>
-                    <img src="./img/icons/picture.svg" alt="img" />
+                    <Card.Img src="./img/icons/picture.svg" alt="img" />
                     <input
                       type="file"
                       id="file-upload"
@@ -116,15 +117,19 @@ const Card = ({ post }) => {
                   </>
                 </div>
                 <div className="button-container">
-                  <button className="btn" onClick={updateItem}>
+                  <Button className="btn" onClick={updateItem}>
                     Valider modification
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
             <figure className="image">
               {post.picture && (
-                <img src={post.picture} alt="card-pic" className="card-pic" />
+                <Card.Img
+                  src={post.picture}
+                  alt="card-pic"
+                  className="card-pic"
+                />
               )}
               {post.video && (
                 <iframe
@@ -138,22 +143,22 @@ const Card = ({ post }) => {
                 ></iframe>
               )}
             </figure>
-          </div>
-          <footer className="card__actions">
-            <img
+          </Card.Body>
+          <Card.Footer className="card-footer">
+            <Card.Img
               onClick={() => setShowComments(!showComments)}
               src="./img/icons/message1.svg"
               alt="comment"
-              className="btn btn--icon"
+              className="btn btn-icon"
             />
             <span>{post.comments.length}</span>
             <LikeButton post={post} />
-          </footer>
+          </Card.Footer>
           {showComments && <CardComments post={post} />}
         </>
       )}
-    </li>
+    </Card>
   );
 };
 
-export default Card;
+export default PostCard;

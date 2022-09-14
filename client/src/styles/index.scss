@@ -4,12 +4,16 @@
 @import './components/NewPostForm.scss';
 @import './components/Card.scss';
 @import './components/UpdateProfil.scss';
+@import './components/Following.scss';
+@import './components/ProfilCard.scss';
+@import './components/Trends.scss';
+@import './components/Friendshint.scss';
 
 /* ----- Theme color personalized ----- */
 $theme-colors: (
   "primary": #fd2d01,
   "secondary": #ffd7d7,
-  "dark":#4e5166,
+  "tertary":#4e5166,
 );
 
 @font-face {

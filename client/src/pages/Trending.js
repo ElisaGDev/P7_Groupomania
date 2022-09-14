@@ -2,29 +2,36 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { UidContext } from "../components/AppContext";
 import { isEmpty } from "../components/utils/tools";
-import Card from "../components/Post/Card";
+import PostCard from "../components/Post/PostCard";
+import ProfilCard from "../components/Profil/ProfilCard";
 import Trends from "../components/Trends";
 import FriendsHint from "../components/Profil/FriendsHint";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const Trending = () => {
   const uid = useContext(UidContext);
   const trendList = useSelector((state) => state.trendingReducer);
 
   return (
-    <div className="trending-page">
-      <div className="main">
-        <ul>
-          {!isEmpty(trendList[0]) &&
-            trendList.map((post) => <Card post={post} key={post._id} />)}
-        </ul>
-      </div>
-      <div className="right-side">
-        <div className="right-side-container">
+    <Container fluid className="trending-page">
+      <Row>
+        <Col className="mb-4">
+          <ProfilCard />
+        </Col>
+        <Col lg={6} className="main">
+          <ul>
+            {!isEmpty(trendList[0]) &&
+              trendList.map((post) => <PostCard post={post} key={post._id} />)}
+          </ul>
+        </Col>
+        <Col className="right-side">
           <Trends />
           {uid && <FriendsHint />}
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

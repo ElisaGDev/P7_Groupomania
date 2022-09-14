@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "../../actions/user.actions";
 import { isEmpty } from "../utils/tools";
+import Button from "react-bootstrap/Button";
 
 const FollowHandler = ({ idToFollow, type }) => {
   const userData = useSelector((state) => state.userReducer);
@@ -31,7 +32,7 @@ const FollowHandler = ({ idToFollow, type }) => {
       {isFollowed && !isEmpty(userData) && (
         <span onClick={handleUnfollow}>
           {type === "suggestion" && (
-            <button className="unfollow-btn">Abonné</button>
+            <Button className="unfollow-btn text-white">Abonné</Button>
           )}
           {type === "card" && (
             <img src="./img/icons/checked.svg" alt="checked" />
@@ -41,7 +42,9 @@ const FollowHandler = ({ idToFollow, type }) => {
       {isFollowed === false && !isEmpty(userData) && (
         <span onClick={handleFollow}>
           {type === "suggestion" && (
-            <button className="follow-btn">Suivre</button>
+            <Button variant="tertary" className="follow-btn text-white">
+              Suivre
+            </Button>
           )}
           {type === "card" && <img src="./img/icons/check.svg" alt="check" />}
         </span>

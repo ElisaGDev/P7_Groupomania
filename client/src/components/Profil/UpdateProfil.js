@@ -3,17 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/user.actions";
 import { dateParser } from "../utils/tools";
-import FollowHandler from "./FollowHandler";
+import Following from "./Following";
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
   const [updateForm, setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.userReducer);
-  const usersData = useSelector((state) => state.usersReducer);
   const error = useSelector((state) => state.errorReducer.userError);
   const dispatch = useDispatch();
-  const [followingPopup, setFollowingPopup] = useState(false);
-  const [followersPopup, setFollowersPopup] = useState(false);
 
   const handleUpdate = () => {
     dispatch(updateBio(userData._id, bio));
@@ -21,117 +22,57 @@ const UpdateProfil = () => {
   };
 
   return (
-    <div className="profil-container">
-      <h1> Profil de {userData.pseudo}</h1>
-      <div className="update-container">
-        <div className="left-part">
-          <h3>Photo de profil</h3>
-          <img src={userData.picture} alt="user-pic" width="50px" />
+    <Container className="profil-container mt-7 shadow">
+      <Card>
+        <h1 className="profil-title text-center">
+          {" "}
+          Profil de {userData.pseudo}
+        </h1>
+        <Card.Header className="profil-header">
+          <Card.Img
+            src={userData.picture}
+            alt="user-pic"
+            className="img-profil rounded-circle"
+          />
+          <h3 className="profil-subtitle">Photo de profil</h3>
           <UploadImg />
           <p>{error.maxSize}</p>
           <p>{error.format}</p>
-        </div>
-        <div className="right-part">
-          <div className="bio-update">
-            <h3>Bio</h3>
-            {updateForm === false && (
-              <>
-                <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
-                <button onClick={() => setUpdateForm(!updateForm)}>
-                  Modifier bio
-                </button>
-              </>
-            )}
-            {updateForm && (
-              <>
-                <textarea
-                  type="text"
-                  defaultValue={userData.bio}
-                  onChange={(e) => setBio(e.target.value)}
-                ></textarea>
-                <button onClick={handleUpdate}>Valider modifications</button>
-              </>
-            )}
-          </div>
-          <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
-          <button onClick={() => setFollowingPopup(true)}>
-            Abonnements : {userData.following ? userData.following.length : ""}
-          </button>
-          <h5 onClick={() => setFollowersPopup(true)}>
-            Abonnés : {userData.followers ? userData.followers.length : ""}
-          </h5>
-        </div>
-      </div>
-      {followingPopup && (
-        <div class="modal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3>Abonnements</h3>
-                <span
-                  className="cross"
-                  onClick={() => setFollowingPopup(false)}
-                >
-                  &#10005;
-                </span>
-              </div>
-              <ul>
-                {usersData.map((user) => {
-                  for (let i = 0; i < userData.following.length; i++) {
-                    if (user._id === userData.following[i]) {
-                      return (
-                        <li key={user._id}>
-                          <img src={user.picture} alt="user-pic" />
-                          <h4>{user.pseudo}</h4>
-                          <div className="follow-handler">
-                            <FollowHandler
-                              idToFollow={user._id}
-                              type={"suggestion"}
-                            />
-                          </div>
-                        </li>
-                      );
-                    }
-                  }
-                  return null;
-                })}
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
-      {followersPopup && (
-        <div className="modal">
-          <div className="modal">
-            <h3>Abonnés</h3>
-            <span className="cross" onClick={() => setFollowersPopup(false)}>
-              &#10005;
-            </span>
-            <ul>
-              {usersData.map((user) => {
-                for (let i = 0; i < userData.followers.length; i++) {
-                  if (user._id === userData.followers[i]) {
-                    return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />
-                        <h4>{user.pseudo}</h4>
-                        <div className="follow-handler">
-                          <FollowHandler
-                            idToFollow={user._id}
-                            type={"suggestion"}
-                          />
-                        </div>
-                      </li>
-                    );
-                  }
-                }
-                return null;
-              })}
-            </ul>
-          </div>
-        </div>
-      )}
-    </div>
+        </Card.Header>
+        <Card.Body className="text-center">
+          <h3>Bio</h3>
+          {updateForm === false && (
+            <>
+              <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
+              <Button
+                onClick={() => setUpdateForm(!updateForm)}
+                className="text-white mb-3"
+              >
+                Modifier bio
+              </Button>
+            </>
+          )}
+          {updateForm && (
+            <>
+              <Form.Control
+                as="textarea"
+                defaultValue={userData.bio}
+                placeholder="Rédiger votre bio !"
+                onChange={(e) => setBio(e.target.value)}
+                className="mb-4"
+              />
+              <Button onClick={handleUpdate} className="text-white mb-4">
+                Valider modifications
+              </Button>
+            </>
+          )}
+          <h6 className="mb-4">
+            Membre depuis le : {dateParser(userData.createdAt)}
+          </h6>
+          <Following />
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
