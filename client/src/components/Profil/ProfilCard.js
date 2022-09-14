@@ -11,7 +11,7 @@ export default function ProfilCard() {
   return (
     <Card className="text-center">
       <Card.Img
-        src="https://i.imgur.com/Qtrsrk5.jpg"
+        src="https://www.angelxp.eu/image/Twitter/art/noir06.jpg"
         alt="background img"
         height="60"
       />
@@ -32,15 +32,11 @@ export default function ProfilCard() {
           <Stack direction="horizontal" gap={2}>
             <div className="bg-light">
               <h6 className="fw-bold">Abonnés</h6>
-              <span>314431</span>
+              <span>{userData.followers ? userData.followers.length : ""}</span>
             </div>
             <div className="bg-light">
               <h6 className="fw-bold">Abonnements</h6>
-              <span>314431</span>
-            </div>
-            <div className="bg-light">
-              <h6 className="fw-bold">Posts</h6>
-              <span>314431</span>
+              <span>{userData.following ? userData.following.length : ""}</span>
             </div>
           </Stack>
         </Card.Text>
