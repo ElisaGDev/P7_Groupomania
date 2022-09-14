@@ -22,6 +22,7 @@ export default function Logout() {
   return (
     <NavLink onClick={logout}>
       <img src="./img/icons/logout.svg" alt="logout" width="25" />
+      <span className="text-white">Se déconnecter</span>
     </NavLink>
   );
 }

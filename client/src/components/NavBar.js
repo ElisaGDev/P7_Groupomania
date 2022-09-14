@@ -42,19 +42,20 @@ const NavBar = () => {
               <Nav>
                 <Nav.Link href="/">
                   <Image src="img/icons/home.svg" alt="home" width="25" />
+                  <span className="text-white">Accueil</span>
                 </Nav.Link>
 
                 <Nav.Link
                   href="/profil"
                   className="text-decoration-none fw-bold "
                 >
-                  <span className="text-white">{userData.pseudo} </span>
                   <Image
                     src={userData.picture}
                     width="30px"
                     className="avatar-nav img-xs rounded-circle "
                     alt="user-pic"
                   />
+                  <span className="text-white pseudo">{userData.pseudo} </span>
                 </Nav.Link>
 
                 <Logout />

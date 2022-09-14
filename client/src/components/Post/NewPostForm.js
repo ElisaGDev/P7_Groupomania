@@ -73,7 +73,7 @@ const NewPostForm = () => {
   }, [userData, message, video]);
 
   return (
-    <Container className="postform-container">
+    <Container className="postform-container bg-secondary">
       {isLoading ? (
         <Spinner animation="border" variant="warning" width="text-center" />
       ) : (

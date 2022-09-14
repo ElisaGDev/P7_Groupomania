@@ -35,7 +35,7 @@ const CardComments = ({ post }) => {
             }
             key={comment._id}
           >
-            <Card.Header className="left-part">
+            <Card.Header className="left-part bg-secondary">
               <img
                 src={
                   !isEmpty(usersData[0]) &&
