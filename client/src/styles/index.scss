@@ -32,5 +32,9 @@ $theme-colors: (
     font-family: "Lato", sans-serif
 } 
 
+body {
+  background: url('../../public/background.svg') no-repeat center center fixed;
+}
+
 /* style bootstrap imported at the bottom css */
 @import "~bootstrap/scss/bootstrap.scss";

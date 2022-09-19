@@ -28,7 +28,7 @@ export default function ProfilCard() {
             Editer le profil
           </Button>
         </NavLink>
-        <Card.Text className="d-flex justify-content-center mt-4">
+        <Card className="follow d-flex justify-content-center mt-4">
           <Stack direction="horizontal" gap={2}>
             <div className="bg-light">
               <h6 className="fw-bold">Abonnés</h6>
@@ -39,7 +39,7 @@ export default function ProfilCard() {
               <span>{userData.following ? userData.following.length : ""}</span>
             </div>
           </Stack>
-        </Card.Text>
+        </Card>
       </Card.Body>
     </Card>
   );
