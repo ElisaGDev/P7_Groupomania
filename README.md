@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/ElisaGDev/P7_Groupomania">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/Logo.png" alt="Logo" width="500" height="180">
   </a>
 
 <h3 align="center">Groupomania</h3>
@@ -158,18 +158,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Police : Lato
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
