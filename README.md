@@ -1,3 +1,4 @@
+<a name="readme-top"></a>
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -34,18 +35,14 @@
       </ul>
     </li>
     <li>
-      <a href="#Commencement">Commencer</a>
+      <a href="#commencement">Commencer</a>
       <ul>
         <li><a href="#prérequis">Prérequis</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#démo">Démo</a></li>
+    <li><a href="#spécifications">Spécifications</a></li>
   </ol>
 </details>
 
@@ -57,22 +54,21 @@
 
 Le projet consiste à construire un réseau social interne pour les employés de Groupomania. Le but de cet outil est de faciliter les interactions entre collègues.
 
-<p align="right">(<a href="#readme-top">retour en haut</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ### Développé avec
 
-* [![Nodejs][Nodejs.com]][Nodejs-url]
-* [![Express][Express.com]][Express-url]
-* [![MongoDB][MongoDB.com]][MongoDB-url]
+* [![Nodejs][Nodejs]][Nodejs-url]
+* [![Express][Express]][Express-url]
+* [![Mongo][Mongo]][Mongo-url]
 * [![React][React.js]][React-url]
-* [![Redux][Redux.js]][Redux-url]
+* [![Redux][Redux]][Redux-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![React-Bootstrap][React-Bootstrap.com]][React-Bootstrap-url]
-* [![Sass][Sass.com]][Sass-url]
+* [![Sass][Sass]][Sass-url]
 
-<p align="right">(<a href="#readme-top">retour en haut</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -117,13 +113,12 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
     ```
 Le projet devrait se alncer sur l'adresse : http://localhost:3000
 
-<p align="right">(<a href="#readme-top">retour en haut</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+<!-- DEMO -->
+## Démo
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -131,56 +126,37 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 
-<!-- ROADMAP -->
-## Roadmap
+<!-- SPECIFICATIONS -->
+## Spécifications
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+### Côté graphique
+- [x] Respecter l'identité graphique
+- [x] Site web responsive
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+### Côté Technique
+- [x] Site codé en Javascript
+- [x] Utilisation d'un framework front-end Javascript
+- [x] Utilisation d'une base de données
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Spécifications fonctionnelles
+ - [x] Page de connexion
+    - [x] Un utilisateur doit avoir la possibilité de se déconnecter,
+    - [x] La session de l’utilisateur persiste pendant qu’il est connecté,
+    - [x] Les données de connexion doivent être sécurisées.
+ - [x] Page d'accueil avec la liste des posts crées
+ - [x] Création d’un post
+    - [x] Un utilisateur doit pouvoir créer un post,
+    - [x] Un post doit pouvoir contenir du texte et une image,
+    - [x] Un utilisateur doit aussi pouvoir modifier et supprimer ses posts.
+- [x] Système de like
+- [x] Rôle administrateur
 
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+### Identité visuelle
+- [x] Primaire : <img src="https://img.shields.io/badge/-%23FD2D01-%23FD2D01"/>
+- [x] Secondaire : <img src="https://img.shields.io/badge/-%23FFD7D7-%23FFD7D7"/>
+- [x] Tertiaire : <img src="https://img.shields.io/badge/-%234E5166-%234E5166"/>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ACKNOWLEDGMENTS -->
@@ -196,31 +172,19 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
-[Nodejs]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
-[Nodejs-url]: https://nodejs.dev/en/
+[Nodejs]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=nodedotjs&logoColor=white
+[Nodejs-url]: https://nodejs.dev/
 [Express]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
 [Express-url]: https://expressjs.com/fr/
-[MongoDB]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
-[MongoDB-url]: https://www.mongodb.com/
+[Mongo]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
+[Mongo-url]: https://www.mongodb.com/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Redux]: https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white
 [Redux-url]: https://redux.js.org/
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
+[Bootstrap-url]: https://getbootstrap.com/
 [Sass]: https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white
 [Sass-url]: https://sass-lang.com/
-
+[Primary]: https://img.shields.io/badge/-#FD2D01-#FD2D01
