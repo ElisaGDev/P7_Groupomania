@@ -99,15 +99,15 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
    npm install
    npm start
    ```
-4. Mettez vos informations de cluster dans /config/db.js Créez le fichier .env dans /config/ ajouter les donner suivante :
+4. Mettez vos informations de cluster dans /config/db.js, côté backend. Créez le fichier .env dans /config/ ajouter les donner suivante :
    ```sh
    PORT= votre port localhost pour votre Back-end(exemple 5000)
    PORT_FRONT = votre port localhost pour votre Front-end (exemple 3000)
-   FRONT_END_URL=http://localhost:3000 votre URL Front-end
    DB_USER_PASS= votre identifiant et mot de passe mongoDB
-   TOKEN_SECRET= votre clé secrète aléatoire
+   USER_TOKEN_PASS= votre clé secrète aléatoire
+   CLIENT_URL=http://localhost:3000 votre URL Front-end
    ```
- 5. Créez un fichier .env :
+ 5. Mettez vos informations de cluster dans la racine du dossier "client". Créez un fichier .env :
     ```sh
     REACT_APP_API_URL=http://localhost:5000/ l'url de Back-end
     ```
