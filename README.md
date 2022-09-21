@@ -155,6 +155,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Primaire : <img src="https://img.shields.io/badge/-%23FD2D01-%23FD2D01"/>
 - [x] Secondaire : <img src="https://img.shields.io/badge/-%23FFD7D7-%23FFD7D7"/>
 - [x] Tertiaire : <img src="https://img.shields.io/badge/-%234E5166-%234E5166"/>
+- [x] Police : Lato
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
