@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/ElisaGDev/P7_Groupomania">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/Logo.png" alt="Logo" width="500" height="180">
   </a>
 
 <h3 align="center">Groupomania</h3>
@@ -105,7 +105,7 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
    PORT_FRONT = votre port localhost pour votre Front-end (exemple 3000)
    FRONT_END_URL=http://localhost:3000 votre URL Front-end
    DB_USER_PASS= votre identifiant et mot de passe mongoDB
-   TOKEN_SECRET=990bf68e6adf1be5f1671bba3bec692056922454 votre clé secrète aléatoire
+   TOKEN_SECRET= votre clé secrète aléatoire
    ```
  5. Créez un fichier .env :
     ```sh
@@ -158,18 +158,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Police : Lato
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
