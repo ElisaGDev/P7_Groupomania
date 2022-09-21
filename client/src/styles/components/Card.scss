@@ -9,6 +9,10 @@
   margin-bottom: 20px;
 }
 
+.card-body{
+  text-align: justify;
+}
+
 .card-header{
   display: flex;
 }
@@ -23,6 +27,12 @@
   font-size: 0.9rem;
 }
 
+
+  .video{
+    width: 100%;
+  }
+  
+
 .icon{
   width: 1.5rem;
 }
@@ -34,7 +44,7 @@
   &--avatar {
     display: inline-block;
     margin-right: 10px;
-    width: auto !important;
+    max-width: 50px;
     border-radius: 50%;
     vertical-align: middle;
   }

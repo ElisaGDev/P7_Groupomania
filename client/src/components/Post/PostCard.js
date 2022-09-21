@@ -140,6 +140,7 @@ const PostCard = ({ post }) => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   title={post._id}
+                  className="video"
                 ></iframe>
               )}
             </figure>
