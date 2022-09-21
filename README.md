@@ -119,8 +119,22 @@ Le projet devrait se alncer sur l'adresse : http://localhost:3000
 <!-- DEMO -->
 ## Démo
 
+<p align="center">
+<img alt="screenshot-home" src="images/screenshot.png">
+Page d'accueil</p>
+<p align="center">
+<img alt="screenshot-login" src="images/screenshotlogin.png" >
+Page de connexion</p>
+<p align="center">
+<img alt="screenshot-profil" src="images/screenshotprofil.png">
+Page de profil</p>
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<div class="container">
+  <img alt="screenshot-home-resp" src="images/screenshotresp1.png" style="width: 35%;"> 
+  <img alt="screenshot-login-resp" src="images/screenshotresplogin.png" style="width: 35%;" >
+  <img alt="screenshot-profil-resp" src="images/screenshotrespprofil.png" style="width: 35%;" >
+</div>
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
