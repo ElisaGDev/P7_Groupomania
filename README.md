@@ -105,7 +105,7 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
    PORT_FRONT = votre port localhost pour votre Front-end (exemple 3000)
    FRONT_END_URL=http://localhost:3000 votre URL Front-end
    DB_USER_PASS= votre identifiant et mot de passe mongoDB
-   TOKEN_SECRET=990bf68e6adf1be5f1671bba3bec692056922454 votre clé secrète aléatoire
+   TOKEN_SECRET= votre clé secrète aléatoire
    ```
  5. Créez un fichier .env :
     ```sh
