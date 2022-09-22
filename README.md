@@ -109,30 +109,35 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
    ```
 5. Mettez vos informations de cluster dans la racine du dossier "client". Créez un fichier .env :
    `sh REACT_APP_API_URL=http://localhost:5000/ l'url de Back-end `
-   Le projet devrait se alncer sur l'adresse : http://localhost:3000
+   Le projet devrait se lancer sur l'adresse : http://localhost:3000
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DEMO -->
 
 <<<<<<< HEAD
+
 ## Démo
+
 =======
+
 ### Version Desktop
-| **Page d'accueil** |
-| :---: |
-| ![screenshot-home](images/screenshot.png) |
-| **Page d'authenfication** |
-| ![screenshot-login](images/screenshotlogin.png) |
-| **Page de profil** |
+
+|                **Page d'accueil**                 |
+| :-----------------------------------------------: |
+|     ![screenshot-home](images/screenshot.png)     |
+|             **Page d'authenfication**             |
+|  ![screenshot-login](images/screenshotlogin.png)  |
+|                **Page de profil**                 |
 | ![screenshot-profil](images/screenshotprofil.png) |
+
 <br>
 <br>
->>>>>>> 5c00f21232dd17b5ddf73ba787d2d3a5f16c0cdb
 
 ### Version Mobile
-| Page d'accueil | Page d'authenfication | Page de profil |
-| :---: | :---: | :---: |
+
+|                   Page d'accueil                    |                  Page d'authenfication                   |                       Page de profil                       |
+| :-------------------------------------------------: | :------------------------------------------------------: | :--------------------------------------------------------: |
 | ![screenshot-home-resp](images/screenshotresp1.png) | ![screenshot-login-resp](images/screenshotresplogin.png) | ![screenshot-profil-resp](images/screenshotrespprofil.png) |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
