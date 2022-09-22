@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/ElisaGDev/P7_Groupomania">
-    <img src="images/Logo.png" alt="Logo" width="500" height="180">
+    <img src="images/Logo.png" alt="Logo" width="500" height="170">
   </a>
 
 <h3 align="center">Groupomania</h3>
@@ -119,22 +119,20 @@ Le projet devrait se alncer sur l'adresse : http://localhost:3000
 <!-- DEMO -->
 ## Démo
 
-<p align="center">
-<img alt="screenshot-home" src="images/screenshot.png">
-Page d'accueil</p>
-<p align="center">
-<img alt="screenshot-login" src="images/screenshotlogin.png" >
-Page de connexion</p>
-<p align="center">
-<img alt="screenshot-profil" src="images/screenshotprofil.png">
-Page de profil</p>
+| **Page d'accueil** |
+| :---: |
+| ![screenshot-home](images/screenshot.png) |
+| **Page d'authenfication** |
+| ![screenshot-login](images/screenshotlogin.png) |
+| **Page de profil** |
+| ![screenshot-profil](images/screenshotprofil.png) |
+<br>
+<br>
 
-<div class="container">
-  <img alt="screenshot-home-resp" src="images/screenshotresp1.png" style="width: 35%;"> 
-  <img alt="screenshot-login-resp" src="images/screenshotresplogin.png" style="width: 35%;" >
-  <img alt="screenshot-profil-resp" src="images/screenshotrespprofil.png" style="width: 35%;" >
-</div>
 
+| Page d'accueil Responsive | Page d'authenfication Responsive | Page de profil Responsive |
+| :---: | :---: | :---: |
+| ![screenshot-home-resp](images/screenshotresp1.png) | ![screenshot-login-resp](images/screenshotresplogin.png) | ![screenshot-profil-resp](images/screenshotrespprofil.png) |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
