@@ -109,17 +109,14 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
    ```
 5. Mettez vos informations de cluster dans la racine du dossier "client". Créez un fichier .env :
    `sh REACT_APP_API_URL=http://localhost:5000/ l'url de Back-end `
+   <br>
    Le projet devrait se lancer sur l'adresse : http://localhost:3000
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DEMO -->
 
-<<<<<<< HEAD
-
 ## Démo
-
-=======
 
 ### Version Desktop
 
