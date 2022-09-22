@@ -42,6 +42,10 @@
       </ul>
     </li>
     <li><a href="#démo">Démo</a></li>
+      <ul>
+        <li><a href="#version-desktop">Version Desktop</a></li>
+        <li><a href="#version-mobile">Version Mobile</a></li>
+      </ul>
     <li><a href="#spécifications">Spécifications</a></li>
   </ol>
 </details>
@@ -119,6 +123,7 @@ Le projet devrait se alncer sur l'adresse : http://localhost:3000
 <!-- DEMO -->
 ## Démo
 
+### Version Desktop
 | **Page d'accueil** |
 | :---: |
 | ![screenshot-home](images/screenshot.png) |
@@ -129,8 +134,8 @@ Le projet devrait se alncer sur l'adresse : http://localhost:3000
 <br>
 <br>
 
-
-| Page d'accueil Responsive | Page d'authenfication Responsive | Page de profil Responsive |
+### Version Mobile
+| Page d'accueil | Page d'authenfication | Page de profil |
 | :---: | :---: | :---: |
 | ![screenshot-home-resp](images/screenshotresp1.png) | ![screenshot-login-resp](images/screenshotresplogin.png) | ![screenshot-profil-resp](images/screenshotrespprofil.png) |
 
