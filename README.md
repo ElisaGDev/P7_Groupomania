@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/ElisaGDev/P7_Groupomania">
-    <img src="images/Logo.png" alt="Logo" width="500" height="180">
+    <img src="images/Logo.png" alt="Logo" width="500" height="170">
   </a>
 
 <h3 align="center">Groupomania</h3>
@@ -41,6 +41,10 @@
       </ul>
     </li>
     <li><a href="#démo">Démo</a></li>
+      <ul>
+        <li><a href="#version-desktop">Version Desktop</a></li>
+        <li><a href="#version-mobile">Version Mobile</a></li>
+      </ul>
     <li><a href="#spécifications">Spécifications</a></li>
   </ol>
 </details>
@@ -111,9 +115,25 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
 
 <!-- DEMO -->
 
+<<<<<<< HEAD
 ## Démo
+=======
+### Version Desktop
+| **Page d'accueil** |
+| :---: |
+| ![screenshot-home](images/screenshot.png) |
+| **Page d'authenfication** |
+| ![screenshot-login](images/screenshotlogin.png) |
+| **Page de profil** |
+| ![screenshot-profil](images/screenshotprofil.png) |
+<br>
+<br>
+>>>>>>> 5c00f21232dd17b5ddf73ba787d2d3a5f16c0cdb
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### Version Mobile
+| Page d'accueil | Page d'authenfication | Page de profil |
+| :---: | :---: | :---: |
+| ![screenshot-home-resp](images/screenshotresp1.png) | ![screenshot-login-resp](images/screenshotresplogin.png) | ![screenshot-profil-resp](images/screenshotrespprofil.png) |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
