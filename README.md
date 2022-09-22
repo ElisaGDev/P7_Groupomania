@@ -42,6 +42,7 @@
     </li>
     <li><a href="#démo">Démo</a></li>
       <ul>
+        <li><a href="#aperçu-en-vidéo">Démo en vidéo</a></li>
         <li><a href="#version-desktop">Version Desktop</a></li>
         <li><a href="#version-mobile">Version Mobile</a></li>
       </ul>
@@ -111,12 +112,17 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
    `sh REACT_APP_API_URL=http://localhost:5000/ l'url de Back-end `
    <br>
    Le projet devrait se lancer sur l'adresse : http://localhost:3000
+6. Importer la base de données MongoDB ou la fournir directement en créant des nouveaux utilisateurs et posts.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DEMO -->
 
 ## Démo
+
+### Aperçu en vidéo
+
+Vidéo
 
 ### Version Desktop
 
