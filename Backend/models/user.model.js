@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: `http://localhost:${process.env.PORT}/uploads/random-user.png`,
+      default: `../img/random-user.png`,
     },
     bio: {
       type: String,
