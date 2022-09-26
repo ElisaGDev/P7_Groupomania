@@ -109,7 +109,7 @@ const NewPostForm = () => {
                     className="image image--avatar"
                   />
                   <Card.Text as="h5" className="card-pseudo fw-bold">
-                    <h3>{userData.pseudo}</h3>
+                    <span>{userData.pseudo}</span>
                     <span className="date fw-light">
                       {timestampParser(Date.now())}
                     </span>
