@@ -40,8 +40,12 @@ function Following() {
                 for (let i = 0; i < userData.following.length; i++) {
                   if (user._id === userData.following[i]) {
                     return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />
+                      <li key={user._id} className="mb-3 text-center">
+                        <img
+                          className="img-modal"
+                          src={user.picture}
+                          alt="user-pic"
+                        />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
@@ -59,7 +63,7 @@ function Following() {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={followingClose}>
-              Close
+              Fermer
             </Button>
           </Modal.Footer>
         </Modal>
@@ -76,8 +80,12 @@ function Following() {
                 for (let i = 0; i < userData.followers.length; i++) {
                   if (user._id === userData.followers[i]) {
                     return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />
+                      <li key={user._id} className="mb-3 text-center">
+                        <img
+                          className="img-modal"
+                          src={user.picture}
+                          alt="user-pic"
+                        />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
@@ -95,7 +103,7 @@ function Following() {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={followersClose}>
-              Close
+              Fermer
             </Button>
           </Modal.Footer>
         </Modal>
