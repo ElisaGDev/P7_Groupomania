@@ -36,7 +36,6 @@
     <li>
       <a href="#commencement">Commencer</a>
       <ul>
-        <li><a href="#prérequis">Prérequis</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -78,10 +77,6 @@ Le projet consiste à construire un réseau social interne pour les employés de
 
 Pour installer le projet sur votre machine, suivez les instructions suivantes:
 
-### Prérequis
-
-- Node JS version
-
 ### Installation
 
 1. Clonez ce repo
@@ -122,7 +117,13 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
 
 ### Aperçu en vidéo
 
-Vidéo
+#### Version Desktop
+
+[![Version desktop](http://img.youtube.com/vi/aJTRYQcRGxo/0.jpg)](https://youtu.be/aJTRYQcRGxo "Version Desktop")
+
+#### Version Mobile
+
+[![Version mobile](http://img.youtube.com/vi/9EEkmvY2KGI/0.jpg)](https://youtu.be/9EEkmvY2KGI "Version Mobile")
 
 ### Version Desktop
 
