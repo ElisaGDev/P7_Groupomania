@@ -104,11 +104,16 @@ const PostCard = ({ post }) => {
                   defaultValue={post.message}
                   onChange={(e) => setTextUpdate(e.target.value)}
                 />
-                <div className="icon">
+                <div className="icon form-control has-feedback">
                   <>
-                    <Card.Img src="./img/icons/picture.svg" alt="img" />
+                    <Card.Img
+                      src="./img/icons/picture.svg"
+                      alt="img"
+                      className="form-control-feedback img-postform"
+                    />
                     <input
                       type="file"
+                      className="form-control"
                       id="file-upload"
                       name="file"
                       accept=".jpg, .jpeg, .png"
@@ -117,7 +122,7 @@ const PostCard = ({ post }) => {
                   </>
                 </div>
                 <div className="button-container">
-                  <Button className="btn" onClick={updateItem}>
+                  <Button className="btn text-white" onClick={updateItem}>
                     Valider modification
                   </Button>
                 </div>

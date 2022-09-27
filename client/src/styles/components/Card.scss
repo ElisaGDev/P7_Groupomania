@@ -77,15 +77,46 @@
   
 }
 
-.right-part{
-  flex-direction: row;
+.subpart-comment{
   display: flex;
 }
 
+.update-comment{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
 .text-comment{
-  flex-grow: 4;
+  display:flex;
+  justify-content: space-between;
+}
+
+.edit-comment{
+  span{
+    position: absolute;
+    right: 10px;
+    top: 0px;
+  }
+  button{
+    float:right;
+  }
 }
 
 .btn-comment{
   float: right;
+}
+
+.img-comment {
+  max-width: 30px !important;
+  max-height: 30px !important;
+  margin-right: 10px;
+}
+
+textarea{
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 10px;
 }

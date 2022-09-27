@@ -23,3 +23,17 @@
       justify-content: right;
     }
 }
+
+.update-post{
+  .form-control{
+    display: flex;
+  }
+  .img-postform{
+    width: 30px !important;
+    margin-right: 10px;
+  }
+}
+
+.button-container{
+  text-align: end;
+}

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment, editComment } from "../../actions/post.actions";
 import { UidContext } from "../AppContext";
@@ -47,8 +48,9 @@ const EditDeleteComment = ({ comment, postId }) => {
       {isAuthor && edit && userData.role === "user" && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <br />
-          <input
+          <textarea
             type="text"
+            className="form-control"
             name="text"
             onChange={(e) => setText(e.target.value)}
             defaultValue={comment.text}
@@ -73,14 +75,14 @@ const EditDeleteComment = ({ comment, postId }) => {
       {userData.role === "admin" && edit && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <br />
-          <input
+          <textarea
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
             defaultValue={comment.text}
           />
           <br />
-          <div className="btn">
+          <div className="btn-group-comment">
             <span
               onClick={() => {
                 if (
@@ -92,7 +94,13 @@ const EditDeleteComment = ({ comment, postId }) => {
             >
               <img src="./img/icons/trash.svg" alt="delete" />
             </span>
-            <input type="submit" value="Valider modification" />
+            <Button
+              type="submit"
+              value="Valider modification"
+              className="btn-primary text-white"
+            >
+              Valider modification
+            </Button>
           </div>
         </form>
       )}

@@ -35,7 +35,7 @@ const CardComments = ({ post }) => {
             }
             key={comment._id}
           >
-            <Card.Header className="left-part bg-secondary">
+            <Card.Header className="bg-secondary">
               <img
                 src={
                   !isEmpty(usersData[0]) &&
@@ -47,6 +47,7 @@ const CardComments = ({ post }) => {
                     .join("")
                 }
                 alt="commenter-pic"
+                className="img-comment"
               />
               <Card.Text as="h6" className="card-pseudo fw-bold">
                 {comment.commenterPseudo}
@@ -55,9 +56,11 @@ const CardComments = ({ post }) => {
                 </span>
               </Card.Text>
             </Card.Header>
-            <Card.Body className="right-part">
-              <p className="text-comment">{comment.text}</p>
-              <EditDeleteComment comment={comment} postId={post._id} />
+            <Card.Body className="subpart-comment">
+              <div className="update-comment">
+                <p className="text-comment">{comment.text}</p>
+                <EditDeleteComment comment={comment} postId={post._id} />
+              </div>
             </Card.Body>
           </Card>
         );
