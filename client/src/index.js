@@ -11,6 +11,7 @@ import { getPosts } from "./actions/post.actions";
 import "./styles/index.scss";
 import "./styles/assets/fonts/Lato-Regular.ttf";
 
+// Création du store
 const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
 
 store.dispatch(getUsers());

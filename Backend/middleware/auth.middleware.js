@@ -28,6 +28,7 @@ exports.checkUser = (req, res, next) => {
 exports.requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
+    // Vérification du token
     jwt.verify(
       token,
       process.env.USER_TOKEN_PASS,
