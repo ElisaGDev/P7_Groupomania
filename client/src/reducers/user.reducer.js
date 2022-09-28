@@ -1,6 +1,7 @@
 import {
   FOLLOW_USER,
   GET_USER,
+  DELETE_USER,
   UNFOLLOW_USER,
   UPDATE_BIO,
   UPLOAD_PICTURE,
@@ -11,6 +12,8 @@ const initialState = {};
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
+      return action.payload;
+    case DELETE_USER:
       return action.payload;
     case UPLOAD_PICTURE:
       return {

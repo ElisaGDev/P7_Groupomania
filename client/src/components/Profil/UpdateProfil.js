@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/user.actions";
+import { UidContext } from "../AppContext";
+import { deleteUser } from "../../actions/user.actions";
 import { dateParser } from "../utils/tools";
 import Following from "./Following";
 import Container from "react-bootstrap/Container";
@@ -10,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 const UpdateProfil = () => {
+  const uid = useContext(UidContext);
   const [bio, setBio] = useState("");
   const [updateForm, setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.userReducer);
@@ -19,6 +22,11 @@ const UpdateProfil = () => {
   const handleUpdate = () => {
     dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
+  };
+
+  const deleteProfil = () => {
+    dispatch(deleteUser(uid));
+    window.location = "/";
   };
 
   return (
@@ -69,7 +77,19 @@ const UpdateProfil = () => {
           <h6 className="mb-4">
             Membre depuis le : {dateParser(userData.createdAt)}
           </h6>
+
           <Following />
+          <Button
+            aria-label="Bouton supprimer son compte"
+            className="btn-delete btn-primary text-white"
+            onClick={() => {
+              if (window.confirm("Voulez-vous supprimer cet utilisateur ?")) {
+                deleteProfil();
+              }
+            }}
+          >
+            Supprimer le compte
+          </Button>
         </Card.Body>
       </Card>
     </Container>
