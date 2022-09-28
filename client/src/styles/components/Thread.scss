@@ -1,3 +1,60 @@
 .thread{
     margin-top: 30px;
 }
+
+.main{
+    ul{
+        padding-left: 0px !important;
+    }
+}
+.profil-picture{
+    max-width: 80px !important;
+    margin: 10px 0 0 10px;
+}
+
+.video-trend{
+    width: 100%;
+    height: 100%;
+}
+.list-trend{
+    padding-left: 0px !important;
+
+    li{
+        margin-bottom: 1rem;
+    }
+}
+
+#myModal {
+    top: 100px;
+  }
+
+.img-modal{
+  max-width: 60px !important;
+}
+
+.get-friends-container{
+    ul{
+        padding-left: 0px !important;
+    }
+}
+.user-picture{
+    width: 60px !important;
+    margin: 10px;
+}
+
+.user-hint{
+    .card{
+        flex-direction:row ;
+       
+    }
+    p{
+        align-self: center;
+        margin-bottom: 0px !important;
+        margin-left: 10px;
+        flex-grow: 2;
+    }
+    span{
+        align-self: center;
+        margin: 10px;
+    }
+}

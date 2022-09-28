@@ -120,3 +120,60 @@ textarea{
   border-radius: 0.25rem;
   padding: 10px;
 }
+
+.post-form{
+  margin-bottom: 20px;
+}
+
+.postform-container {
+    margin-bottom: 20px;
+    padding: 16px 40px;
+    border-radius: 20px;
+    position: relative;
+    background-color: #f8f8f8;
+
+    .form-control{
+      display: flex;
+    }
+
+    .img-postform{
+      width: 30px !important;
+      margin-right: 10px;
+    }
+
+    .btn-send{
+      margin-top: 10px;
+      justify-content: right;
+    }
+}
+
+.update-post{
+  .form-control{
+    display: flex;
+  }
+  .img-postform{
+    width: 30px !important;
+    margin-right: 10px;
+  }
+}
+
+.button-container{
+  text-align: end;
+}
+
+.avatar-profil{
+  width:70px !important;
+}
+
+.card-img-overlay{
+  height: 100px;
+}
+
+.follow{
+  border: none !important;
+}
+
+.hstack{
+  align-self: center !important;
+  text-align: center !important;
+}

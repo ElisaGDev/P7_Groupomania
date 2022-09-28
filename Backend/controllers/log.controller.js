@@ -5,6 +5,7 @@ const { registerErrors, loginErrors } = require("../utils/user.errors");
 
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
+// Création d'un token
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.USER_TOKEN_PASS, {
     expiresIn: maxAge,
@@ -39,6 +40,7 @@ exports.login = async (req, res) => {
   }
 };
 
+// Se déconnecter d'un utilisateur
 exports.logout = (req, res, next) => {
   res.clearCookie("jwt", "", { maxAge: 1 });
   res.redirect("/login");

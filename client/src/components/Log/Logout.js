@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+//Permet de retirer les cookies quand on se logout
 import cookie from "js-cookie";
 import NavLink from "react-bootstrap/NavLink";
 
@@ -11,13 +12,15 @@ export default function Logout() {
   };
 
   const logout = async () => {
+    // Retrait du cookie en back
     await axios
       .get(`${process.env.REACT_APP_API_URL}api/user/logout`, {
         withCredentials: true,
       })
+      // Retrait du cookie en front
       .then(() => removeCookie("jwt"))
       .catch((err) => console.log(err));
-    window.location = "/profil";
+    window.location = "/";
   };
   return (
     <NavLink onClick={logout}>

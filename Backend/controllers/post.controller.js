@@ -3,6 +3,7 @@ const User = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 
+// Consultation de tous les posts
 exports.getPosts = (req, res, next) => {
   Post.find((error, docs) => {
     if (!error) {
@@ -13,6 +14,7 @@ exports.getPosts = (req, res, next) => {
   }).sort({ createdAt: -1 }); // tri du plus récent au plus ancien post
 };
 
+// Consultation d'un post
 exports.getOnePost = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .then((post) => {
@@ -23,6 +25,7 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
+// Création d'un post
 exports.createPost = async (req, res, next) => {
   const newPost = new Post({
     posterId: req.body.posterId,
@@ -44,6 +47,7 @@ exports.createPost = async (req, res, next) => {
   }
 };
 
+// Mis à jour d'un post
 exports.updatePost = (req, res, next) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(400).json("ID Unknown : " + req.params.id);
@@ -72,6 +76,7 @@ exports.updatePost = (req, res, next) => {
   }
 };
 
+// Suppression d'un post
 exports.deletePost = (req, res, next) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(400).json("ID Unknown : " + req.params.id);
@@ -91,6 +96,7 @@ exports.deletePost = (req, res, next) => {
   }
 };
 
+// Like d'un post
 exports.likePost = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(400).json("ID Unknown : " + req.params.id);
@@ -118,6 +124,7 @@ exports.likePost = async (req, res, next) => {
   }
 };
 
+// Unlike d'un post
 exports.unLikePost = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.id)) {
     return res.status(400).json("ID Unknown : " + req.params.id);
@@ -144,6 +151,7 @@ exports.unLikePost = async (req, res, next) => {
   }
 };
 
+// Commenter un post
 exports.commentPost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
@@ -170,6 +178,7 @@ exports.commentPost = (req, res) => {
   }
 };
 
+// Mis à jour d'un commentaire
 exports.editCommentPost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
@@ -193,6 +202,7 @@ exports.editCommentPost = (req, res) => {
   }
 };
 
+// Suppression d'un commentaire
 exports.deleteCommentPost = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);

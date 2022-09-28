@@ -4,7 +4,7 @@ const passwordSchema = new passwordValidator();
 
 passwordSchema
   .is()
-  .min(8) // Minimum de 8 caractères requis
+  .min(6) // Minimum de 6 caractères requis
   .is()
   .max(30) // Maximum de 30 caractères autorisés
   .has()

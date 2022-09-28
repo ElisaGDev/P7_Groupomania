@@ -15,6 +15,7 @@ exports.getAllUsers = (req, res, next) => {
     });
 };
 
+// Consultation d'un utilisateur
 exports.getOneUser = (req, res, next) => {
   User.findOne({ _id: req.params.id })
     .select("-password")
@@ -24,6 +25,7 @@ exports.getOneUser = (req, res, next) => {
     });
 };
 
+// Mise à jour de la photo de profil
 exports.uploadProfil = async (req, res) => {
   try {
     await User.findByIdAndUpdate(
@@ -44,6 +46,7 @@ exports.uploadProfil = async (req, res) => {
   }
 };
 
+// Mise à jour du profil
 exports.updateUser = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("Id inconnu" + req.params.id);
@@ -68,6 +71,7 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
+// Suppression du compte utilisateur
 exports.deleteUser = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID inconnu: " + req.params.id);
@@ -80,6 +84,7 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
+// Follow
 exports.follow = async (req, res, next) => {
   if (
     !ObjectID.isValid(req.params.id) ||
@@ -87,7 +92,7 @@ exports.follow = async (req, res, next) => {
   )
     return res.status(400).send("ID inconnu: " + req.params.id);
   try {
-    // add to the follower list
+    // Ajout à la liste des followers
     await User.findByIdAndUpdate(
       req.params.id,
       { $addToSet: { following: req.body.idToFollow } },
@@ -95,7 +100,7 @@ exports.follow = async (req, res, next) => {
     )
       .then((docs) => res.send(docs))
       .catch((err) => res.status(500).send({ message: err }));
-    // add to following list
+    // Ajout à la liste des followings
     await User.findByIdAndUpdate(
       req.body.idToFollow,
       { $addToSet: { followers: req.params.id } },
@@ -106,6 +111,7 @@ exports.follow = async (req, res, next) => {
   }
 };
 
+// Unfollow
 exports.unfollow = async (req, res, next) => {
   if (
     !ObjectID.isValid(req.params.id) ||
@@ -113,7 +119,7 @@ exports.unfollow = async (req, res, next) => {
   )
     return res.status(400).send("ID inconnu: " + req.params.id);
   try {
-    // add to the follower list
+    // Ajout à la liste des followers
     await User.findByIdAndUpdate(
       req.params.id,
       { $pull: { following: req.body.idToUnfollow } },
@@ -121,7 +127,7 @@ exports.unfollow = async (req, res, next) => {
     )
       .then((docs) => res.send(docs))
       .catch((err) => res.status(500).send({ message: err }));
-    // add to following list
+    // Ajout à la liste des followings
     await User.findByIdAndUpdate(
       req.body.idToUnfollow,
       { $pull: { followers: req.params.id } },
