@@ -56,7 +56,7 @@ const EditDeleteComment = ({ comment, postId }) => {
             defaultValue={comment.text}
           />
           <br />
-          <div className="btn">
+          <div className="btn-group-comment">
             <span
               onClick={() => {
                 if (
@@ -68,7 +68,13 @@ const EditDeleteComment = ({ comment, postId }) => {
             >
               <img src="./img/icons/trash.svg" alt="delete" />
             </span>
-            <input type="submit" value="Valider modification" />
+            <Button
+              type="submit"
+              value="Valider modification"
+              className="btn-primary text-white"
+            >
+              Valider modification
+            </Button>
           </div>
         </form>
       )}
