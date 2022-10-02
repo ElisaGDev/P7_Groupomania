@@ -119,7 +119,7 @@ Pour installer le projet sur votre machine, suivez les instructions suivantes:
 
 #### Version Desktop
 
-[![Version desktop](http://img.youtube.com/vi/aJTRYQcRGxo/0.jpg)](https://youtu.be/aJTRYQcRGxo "Version Desktop")
+[![Version desktop](http://img.youtube.com/vi/KD6rdU4Mg98/0.jpg)](https://youtu.be/KD6rdU4Mg98 "Version Desktop")
 
 #### Version Mobile
 
