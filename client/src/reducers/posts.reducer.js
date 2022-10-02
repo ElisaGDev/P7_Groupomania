@@ -10,7 +10,9 @@ import {
 
 const initialState = {};
 
+// Un reducer reçoit 2 paramètres, le state global stocké dans Redux et les actions reçues par le reducer
 export default function postReducer(state = initialState, action) {
+  // le switch permet d'alterner le comportement du reducer en fonction du type d'action
   switch (action.type) {
     case GET_POSTS:
       return action.payload;

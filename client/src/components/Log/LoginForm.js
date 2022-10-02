@@ -22,7 +22,6 @@ export default function LoginForm() {
       .then((res) => {
         window.location = "/";
       })
-      // Voir si erreur
       .catch((err) => {
         emailError.innerHTML = err.response.data.errorEmail;
         passwordError.innerHTML = err.response.data.errorPassword;

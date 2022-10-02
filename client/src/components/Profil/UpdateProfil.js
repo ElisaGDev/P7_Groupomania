@@ -19,11 +19,13 @@ const UpdateProfil = () => {
   const error = useSelector((state) => state.errorReducer.userError);
   const dispatch = useDispatch();
 
+  // Mettre à jour le profil bio
   const handleUpdate = () => {
     dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
   };
 
+  // Supprimer le compte
   const deleteProfil = () => {
     dispatch(deleteUser(uid));
     window.location = "/";
@@ -77,7 +79,6 @@ const UpdateProfil = () => {
           <h6 className="mb-4">
             Membre depuis le : {dateParser(userData.createdAt)}
           </h6>
-
           <Following />
           <Button
             aria-label="Bouton supprimer son compte"

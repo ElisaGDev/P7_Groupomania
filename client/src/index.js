@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+// Permet de partager des données entre les noeuds descendants de l'arborescence
 import { Provider } from "react-redux";
 import { applyMiddleware, legacy_createStore } from "redux";
 import thunk from "redux-thunk";

@@ -9,16 +9,19 @@ const LikeButton = ({ post }) => {
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
 
+  // Liker
   const like = () => {
     dispatch(likePost(post._id, uid));
     setLiked(true);
   };
 
+  // Unliker
   const unlike = () => {
     dispatch(unlikePost(post._id, uid));
     setLiked(false);
   };
 
+  // Pas plus d'un like par user
   useEffect(() => {
     if (post.likers.includes(uid)) setLiked(true);
     else setLiked(false);

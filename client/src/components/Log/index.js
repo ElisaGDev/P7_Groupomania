@@ -19,11 +19,11 @@ export default function Log(props) {
   return (
     <div className="Auth-form-container">
       <div>
-        <ul className="nav nav-tabs ">
+        <ul className="nav nav-tabs">
           <li
             onClick={handleModals}
             id="register"
-            className={registerModal ? "text-primary me-4" : "mx-3"}
+            className={registerModal ? " text-primary me-4" : "mx-3"}
           >
             S'inscrire
           </li>

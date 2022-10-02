@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// useDispatch = permet d'envoyer des actions qui seront traitées par le reducer
+// useSelector = permet de récupérer les données qui sont stockées depuis n'importe quel composant
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/post.actions";
 import PostCard from "./Post/PostCard";
@@ -17,6 +19,7 @@ const Thread = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
 
+  // Infinite scroll
   const loadMore = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >
