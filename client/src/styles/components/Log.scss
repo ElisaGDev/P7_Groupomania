@@ -3,6 +3,9 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  li{
+    cursor: pointer;
+  }
 }
 
 .Auth-form {
